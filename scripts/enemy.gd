@@ -62,6 +62,7 @@ func handle_attack() -> void:
 		return
 
 	var distance := global_position.distance_to(player.global_position)
+	#print("enemy distance=", distance, " range=", stats.weapon.attack_range, " can_attack=", can_attack)
 	if distance <= stats.weapon.attack_range:
 		attack()
 

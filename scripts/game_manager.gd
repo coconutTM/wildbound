@@ -29,7 +29,7 @@ func _on_player_died() -> void:
 func game_over() -> void:
 	state = State.GAME_OVER
 	game_over_triggered.emit()
-	get_tree().change_scene_to_file("res://scenes/game_over.tscn")
+	get_tree().change_scene_to_file.call_deferred("res://scenes/game_over.tscn")
 	#get_tree().quit()
 
 func win_game() -> void:

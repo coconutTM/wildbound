@@ -2,15 +2,10 @@
 
 [ext_resource type="Script" uid="uid://c0iecox87qasx" path="res://scripts/enemy.gd" id="1_cwlon"]
 [ext_resource type="Script" uid="uid://bxn6loir4worr" path="res://scripts/character_stats.gd" id="2_nbhyu"]
-[ext_resource type="Script" uid="uid://don3mrusxfqnn" path="res://scripts/weapon_stats.gd" id="3_13gj6"]
+[ext_resource type="Resource" uid="uid://7vp5itotx2u" path="res://resources/weapons/enemy_3.tres" id="3_cwlon"]
 [ext_resource type="Texture2D" uid="uid://bbonq1b4tj1cm" path="res://assets/charactor/DeathSlime.png" id="4_4efjx"]
 [ext_resource type="Script" uid="uid://ch40lrkskks3v" path="res://scripts/hitbox.gd" id="5_hvxgb"]
 [ext_resource type="Script" uid="uid://bw1lopqlhwhyu" path="res://scripts/hurtbox.gd" id="6_peoo5"]
-
-[sub_resource type="Resource" id="Resource_iywne"]
-resource_local_to_scene = true
-script = ExtResource("3_13gj6")
-metadata/_custom_type_script = "uid://don3mrusxfqnn"
 
 [sub_resource type="Resource" id="Resource_lbhrr"]
 resource_local_to_scene = true
@@ -18,7 +13,7 @@ script = ExtResource("2_nbhyu")
 max_health = 5
 speed = 50.0
 faction = 1
-weapon = SubResource("Resource_iywne")
+weapon = ExtResource("3_cwlon")
 metadata/_custom_type_script = "uid://bxn6loir4worr"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_md0e3"]

@@ -18,7 +18,7 @@
 
 [sub_resource type="Resource" id="Resource_trceg"]
 script = ExtResource("7_jkv2x")
-max_health = 15
+max_health = 10000
 weapon = ExtResource("14_jkv2x")
 metadata/_custom_type_script = "uid://bxn6loir4worr"
 

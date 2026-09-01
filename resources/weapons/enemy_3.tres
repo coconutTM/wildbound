@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Weapon_Stats" format=3 uid="uid://7vp5itotx2u"]
+
+[ext_resource type="Script" uid="uid://don3mrusxfqnn" path="res://scripts/weapon_stats.gd" id="1_vx8j7"]
+
+[resource]
+script = ExtResource("1_vx8j7")
+weapon_name = "Slime"
+attack_range = 40.0
+knockback = 80.0
+metadata/_custom_type_script = "uid://don3mrusxfqnn"

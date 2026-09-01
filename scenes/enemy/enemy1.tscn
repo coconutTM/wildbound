@@ -2,15 +2,10 @@
 
 [ext_resource type="Script" uid="uid://c0iecox87qasx" path="res://scripts/enemy.gd" id="1_8tfq7"]
 [ext_resource type="Script" uid="uid://bxn6loir4worr" path="res://scripts/character_stats.gd" id="2_mjv5f"]
-[ext_resource type="Script" uid="uid://don3mrusxfqnn" path="res://scripts/weapon_stats.gd" id="3_ru7qh"]
+[ext_resource type="Resource" uid="uid://dt0ekh2e7jtij" path="res://resources/weapons/enemy_1.tres" id="3_8tfq7"]
 [ext_resource type="Texture2D" uid="uid://burw0mvspcmyh" path="res://assets/charactor/enemy/Walking-spider.png" id="4_8tfq7"]
 [ext_resource type="Script" uid="uid://ch40lrkskks3v" path="res://scripts/hitbox.gd" id="5_viycq"]
 [ext_resource type="Script" uid="uid://bw1lopqlhwhyu" path="res://scripts/hurtbox.gd" id="6_iy31i"]
-
-[sub_resource type="Resource" id="Resource_iywne"]
-resource_local_to_scene = true
-script = ExtResource("3_ru7qh")
-metadata/_custom_type_script = "uid://don3mrusxfqnn"
 
 [sub_resource type="Resource" id="Resource_lbhrr"]
 resource_local_to_scene = true
@@ -18,7 +13,7 @@ script = ExtResource("2_mjv5f")
 speed = 80.0
 faction = 1
 damage = 2
-weapon = SubResource("Resource_iywne")
+weapon = ExtResource("3_8tfq7")
 metadata/_custom_type_script = "uid://bxn6loir4worr"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mjv5f"]
