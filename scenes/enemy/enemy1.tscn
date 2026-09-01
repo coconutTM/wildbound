@@ -82,6 +82,7 @@ radius = 5.0
 radius = 7.0
 
 [node name="Enemy" type="CharacterBody2D" unique_id=1916641814 groups=["enemy"]]
+scale = Vector2(2, 2)
 script = ExtResource("1_8tfq7")
 stats = SubResource("Resource_lbhrr")
 

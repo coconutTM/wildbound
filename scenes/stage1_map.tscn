@@ -15,20 +15,21 @@ tile_set = ExtResource("1_ht0fc")
 position = Vector2(-399, 253)
 
 [node name="Marker2D" type="Marker2D" parent="SpawnPoints" unique_id=1185309447]
-position = Vector2(245, -298)
+position = Vector2(880, -202)
 
 [node name="Marker2D2" type="Marker2D" parent="SpawnPoints" unique_id=239548441]
-position = Vector2(2252, -202)
+position = Vector2(2090, -136)
 
 [node name="Marker2D3" type="Marker2D" parent="SpawnPoints" unique_id=1176758665]
-position = Vector2(723, 941)
+position = Vector2(2090, 109)
 
 [node name="Marker2D4" type="Marker2D" parent="SpawnPoints" unique_id=1539087920]
-position = Vector2(2188, 755)
+position = Vector2(983, -53)
 
 [node name="Beach" type="Sprite2D" parent="." unique_id=2103858108]
 position = Vector2(901, 450)
 texture = ExtResource("2_arwov")
+metadata/_edit_lock_ = true
 
 [node name="PlayerStart" type="Marker2D" parent="." unique_id=2136147089]
-position = Vector2(649, 856)
+position = Vector2(413, 837)
