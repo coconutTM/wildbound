@@ -140,14 +140,14 @@ position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_werv8")
 animation = &"run"
 autoplay = "idle"
-frame_progress = 0.9493199
+frame_progress = 0.8857139
 
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=991303696]
 position = Vector2(0, -6)
 shape = SubResource("CapsuleShape2D_3vbxy")
 
 [node name="Weapon" parent="." unique_id=1794693032 instance=ExtResource("4_dqkch")]
-position = Vector2(-0.17149991, -5.9975486)
+position = Vector2(3.769699, -8.111065)
 
 [node name="Attack_cooldown" type="Timer" parent="." unique_id=983738510]
 

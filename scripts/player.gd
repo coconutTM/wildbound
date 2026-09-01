@@ -9,12 +9,13 @@ signal components_changed  # hud.gd / crafting_ui.gd ฟังไว้ อั�
 @export var weapon_orbit_radius: float = 10
 
 @onready var sprite: AnimatedSprite2D = $Sprite
-@onready var weapon_sprite: Sprite2D = $Weapon/Sprite2D
+@onready var weapon_sprite: Sprite2D = $Weapon/Pivot2D/Sprite2D
 @onready var attack_animation: AnimationPlayer = $Weapon/AnimationPlayer
 #@onready var attack_hitbox: Hitbox = $Attack_hitbox
-@onready var attack_hitbox: Hitbox = $Weapon/Sprite2D/Hitbox
+@onready var attack_hitbox: Hitbox = $Weapon/Pivot2D/Sprite2D/Hitbox
 @onready var attack_cooldown: Timer = $Attack_cooldown
 @onready var weapon: Node2D = $Weapon
+@onready var weapon_pivot: Node2D = $Weapon/Pivot2D
 
 
 var input_direction := Vector2.ZERO
@@ -96,8 +97,6 @@ func has_enough_components(type: String, amount: int) -> bool:
 
 func update_animation() -> void:
 	var mouse_position = get_global_mouse_position()
-	var facing_down : bool = mouse_position.y > global_position.y
-
 	sprite.flip_h = mouse_position.x < global_position.x
 
 	var is_moving : bool = input_direction != Vector2.ZERO
@@ -108,14 +107,16 @@ func update_animation() -> void:
 		sprite.play("idle")
 		
 
+
+
 func update_weapon_direction() -> void:
 	var mouse_position := get_global_mouse_position()
 	var direction := (mouse_position - global_position).normalized()
- 
+	var facing_left := mouse_position.x < global_position.x
+
 	weapon.position = direction * weapon_orbit_radius
-	# ถ้า sprite ดาบตอน rotation = 0 วาดไว้ "ชี้ขึ้น" (แบบในรูปที่แปะมา) ต้อง + PI/2 ตามนี้
-	# แต่ถ้า sprite วาดไว้ "ชี้ขวา" อยู่แล้ว ให้ลบ + PI / 2 ออก (ใช้ direction.angle() เฉยๆ)
-	weapon.rotation = direction.angle() + PI / 2
+	weapon_pivot.rotation = direction.angle() + (-PI / 4 if facing_left else PI / 4)
+	weapon_pivot.scale.y = -1 if facing_left else 1
 
 func attack() -> void:
 	can_attack = false

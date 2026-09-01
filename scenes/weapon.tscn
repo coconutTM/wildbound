@@ -3,22 +3,24 @@
 [ext_resource type="Script" uid="uid://c4ychtmwyouts" path="res://scripts/weapon.gd" id="1_uxn4k"]
 [ext_resource type="Script" uid="uid://don3mrusxfqnn" path="res://scripts/weapon_stats.gd" id="2_8fp1k"]
 [ext_resource type="Script" uid="uid://ch40lrkskks3v" path="res://scripts/hitbox.gd" id="2_uxn4k"]
-[ext_resource type="Texture2D" uid="uid://b8cmbw04hj5mb" path="res://assets/weapons/sword.png" id="3_8fp1k"]
+[ext_resource type="Texture2D" uid="uid://r7gq5vkqbnoa" path="res://assets/weapons/komfaek.png" id="3_8fp1k"]
 
 [sub_resource type="Resource" id="Resource_bmw2d"]
 script = ExtResource("2_8fp1k")
+weapon_name = "Komfaek"
+knockback = 150.0
 metadata/_custom_type_script = "uid://don3mrusxfqnn"
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3vbxy"]
-radius = 159.99998
-height = 640.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_werv8"]
+radius = 5.655993
+height = 33.94113
 
-[sub_resource type="Animation" id="Animation_8fp1k"]
+[sub_resource type="Animation" id="Animation_cjr6y"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:rotation")
+tracks/0/path = NodePath("Sprite2D:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -28,49 +30,51 @@ tracks/0/keys = {
 "values": [0.0]
 }
 
-[sub_resource type="Animation" id="Animation_bmw2d"]
-resource_name = "new_animation"
-length = 0.25
+[sub_resource type="Animation" id="Animation_8fp1k"]
+resource_name = "attack"
+length = 0.3666700191233307
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:rotation")
+tracks/0/path = NodePath("Sprite2D:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.25),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.033333335, 0.13333334, 0.36667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [0.0, 1.5725417]
+"values": [0.0, -2.268928, 2.3143065, 0.0]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_8fp1k"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cjr6y"]
 _data = {
-&"RESET": SubResource("Animation_8fp1k"),
-&"attack": SubResource("Animation_bmw2d")
+&"RESET": SubResource("Animation_cjr6y"),
+&"attack": SubResource("Animation_8fp1k")
 }
 
 [node name="Weapon" type="Node2D" unique_id=1878990728]
-position = Vector2(0, 1)
 script = ExtResource("1_uxn4k")
 stats = SubResource("Resource_bmw2d")
 metadata/_custom_type_script = "uid://c4ychtmwyouts"
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1154435974]
-position = Vector2(0, -1)
-scale = Vector2(0.04, 0.04)
-texture = ExtResource("3_8fp1k")
-offset = Vector2(0, -400)
+[node name="Pivot2D" type="Marker2D" parent="." unique_id=272721336]
 
-[node name="Hitbox" type="Area2D" parent="Sprite2D" unique_id=495440358]
-position = Vector2(0, -600)
+[node name="Sprite2D" type="Sprite2D" parent="Pivot2D" unique_id=329487121]
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("3_8fp1k")
+offset = Vector2(16, -12)
+
+[node name="Hitbox" type="Area2D" parent="Pivot2D/Sprite2D" unique_id=966014429]
+scale = Vector2(2, 2)
 script = ExtResource("2_uxn4k")
 metadata/_custom_type_script = "uid://ch40lrkskks3v"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/Hitbox" unique_id=638501011]
-position = Vector2(0, -1.5258789e-05)
-shape = SubResource("CapsuleShape2D_3vbxy")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pivot2D/Sprite2D/Hitbox" unique_id=1843013321]
+position = Vector2(13.000002, -14.000002)
+rotation = 0.7853982
+shape = SubResource("CapsuleShape2D_werv8")
+debug_color = Color(2.4546682e-06, 0.624234, 0.5335984, 0.41960785)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1969374526]
-root_node = NodePath("../Sprite2D")
-libraries/ = SubResource("AnimationLibrary_8fp1k")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=450390082]
+root_node = NodePath("../Pivot2D")
+libraries/ = SubResource("AnimationLibrary_cjr6y")
