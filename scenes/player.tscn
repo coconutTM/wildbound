@@ -1,22 +1,11 @@
 [gd_scene format=3 uid="uid://daute4nvt0420"]
 
 [ext_resource type="Script" uid="uid://b5of2onirv6ee" path="res://scripts/player.gd" id="1_fjrip"]
-[ext_resource type="Script" uid="uid://bxn6loir4worr" path="res://scripts/character_stats.gd" id="2_qlg0r"]
 [ext_resource type="Script" uid="uid://don3mrusxfqnn" path="res://scripts/weapon_stats.gd" id="3_fjrip"]
 [ext_resource type="PackedScene" uid="uid://cvy4bafo6bcm4" path="res://scenes/weapon.tscn" id="4_dqkch"]
 [ext_resource type="Texture2D" uid="uid://c1xnydmwmyax2" path="res://assets/charactor/player/idle.png" id="4_fjrip"]
 [ext_resource type="Texture2D" uid="uid://nvnhmtihxfm5" path="res://assets/charactor/player/Right-side-move.png" id="5_smehm"]
 [ext_resource type="Script" uid="uid://bw1lopqlhwhyu" path="res://scripts/hurtbox.gd" id="6_tuyoq"]
-
-[sub_resource type="Resource" id="Resource_xwavj"]
-script = ExtResource("3_fjrip")
-metadata/_custom_type_script = "uid://don3mrusxfqnn"
-
-[sub_resource type="Resource" id="Resource_fjrip"]
-script = ExtResource("2_qlg0r")
-max_health = 10000
-weapon = SubResource("Resource_xwavj")
-metadata/_custom_type_script = "uid://bxn6loir4worr"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ur7pv"]
 atlas = ExtResource("4_fjrip")
@@ -126,6 +115,12 @@ animations = [{
 radius = 3.0
 height = 12.0
 
+[sub_resource type="Resource" id="Resource_smehm"]
+script = ExtResource("3_fjrip")
+weapon_name = "Komfaek"
+knockback = 300.0
+metadata/_custom_type_script = "uid://don3mrusxfqnn"
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_werv8"]
 radius = 7.0
 height = 16.0
@@ -133,7 +128,6 @@ height = 16.0
 [node name="Player" type="CharacterBody2D" unique_id=1180064782 groups=["player"]]
 rotation = 0.028587205
 script = ExtResource("1_fjrip")
-stats = SubResource("Resource_fjrip")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=2074498708]
 position = Vector2(0, -12)
@@ -148,6 +142,7 @@ shape = SubResource("CapsuleShape2D_3vbxy")
 
 [node name="Weapon" parent="." unique_id=1794693032 instance=ExtResource("4_dqkch")]
 position = Vector2(3.769699, -8.111065)
+stats = SubResource("Resource_smehm")
 
 [node name="Attack_cooldown" type="Timer" parent="." unique_id=983738510]
 

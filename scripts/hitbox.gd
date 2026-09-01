@@ -43,8 +43,16 @@ func activate() -> void:
 func deactivate() -> void:
 	monitoring = false
 
+
+
 func _on_area_entered(area: Area2D) -> void:
 	if not area.has_method("receive_hit"):
 		return
 
-	area.receive_hit(attacker_stats.damage)
+	var knockback_force := Vector2.ZERO
+	if attacker_stats.weapon and owner and area.owner:
+		var direction :Vector2 = (area.owner.global_position - owner.global_position).normalized()
+		knockback_force = direction * attacker_stats.weapon.knockback
+
+	print("knockback_force: ", knockback_force)  # debug ชั่วคราว ลบทิ้งทีหลัง
+	area.receive_hit(attacker_stats.damage, knockback_force)

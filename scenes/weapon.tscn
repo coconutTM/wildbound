@@ -8,7 +8,7 @@
 [sub_resource type="Resource" id="Resource_bmw2d"]
 script = ExtResource("2_8fp1k")
 weapon_name = "Komfaek"
-knockback = 150.0
+knockback = 300.0
 metadata/_custom_type_script = "uid://don3mrusxfqnn"
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_werv8"]

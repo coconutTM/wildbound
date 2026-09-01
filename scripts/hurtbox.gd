@@ -20,6 +20,8 @@ func _ready() -> void:
 # ("Hitbox -> Hurtbox -> owner.take_damage(damage)") เพื่อให้ player.gd/enemy.gd
 # มีจุดเดียวที่คุมว่าโดนดาเมจแล้วจะทำอะไรต่อ (เช่น hit animation, invincibility
 # frame ในอนาคต) โดยไม่ต้องแก้ hurtbox.gd ซึ่งควรใช้ร่วมกันได้ทั้งสองฝั่ง
-func receive_hit(damage: int) -> void:
+
+func receive_hit(damage: int, knockback_force: Vector2 = Vector2.ZERO) -> void:
 	owner.take_damage(damage)
-	print(owner_stats.faction, owner_stats.current_health)  # debug เช็ค HP ตอนโดนตี ลบทิ้งได้เมื่อไม่ต้องใช้แล้
+	if owner.has_method("apply_knockback"):
+		owner.apply_knockback(knockback_force)

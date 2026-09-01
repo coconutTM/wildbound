@@ -12,7 +12,11 @@ signal died
 var player: CharacterBody2D = null
 var can_attack: bool = true
 
+var knockback_velocity: Vector2 = Vector2.ZERO
+const KNOCKBACK_FRICTION: float = 600.
+
 func _ready() -> void:
+	stats = stats.duplicate(true)
 	attack_hitbox.setup(stats)
 	attack_hitbox.deactivate()
 
@@ -23,7 +27,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	find_player()
-	handle_movement()
+	handle_movement(delta)
 	handle_attack()
 	update_animation()
 
@@ -35,22 +39,23 @@ func find_player() -> void:
 		return
 	player = get_tree().get_first_node_in_group("player")
 
-func handle_movement() -> void:
-	if not player:
-		velocity = Vector2.ZERO
-		move_and_slide()
-		return
 
-	var distance := global_position.distance_to(player.global_position)
+func handle_movement(delta: float) -> void:
+	var move_velocity := Vector2.ZERO
 
-	# อยู่นอกระยะโจมตี -> เดินเข้าหา / อยู่ในระยะแล้ว -> หยุดเดินแล้วโจมตีแทน
-	if distance > stats.weapon.attack_range:
-		var direction := (player.global_position - global_position).normalized()
-		velocity = direction * stats.speed
-	else:
-		velocity = Vector2.ZERO
+	if player:
+		var distance := global_position.distance_to(player.global_position)
+		if distance > stats.weapon.attack_range:
+			var direction := (player.global_position - global_position).normalized()
+			move_velocity = direction * stats.speed
 
+	velocity = move_velocity + knockback_velocity
 	move_and_slide()
+
+	knockback_velocity = knockback_velocity.move_toward(Vector2.ZERO, KNOCKBACK_FRICTION * delta)
+
+func apply_knockback(force: Vector2) -> void:
+	knockback_velocity = force
 
 func handle_attack() -> void:
 	if not player or not can_attack:

@@ -17,6 +17,8 @@ signal components_changed  # hud.gd / crafting_ui.gd ฟังไว้ อั�
 @onready var weapon: Node2D = $Weapon
 @onready var weapon_pivot: Node2D = $Weapon/Pivot2D
 
+var knockback_velocity: Vector2 = Vector2.ZERO
+const KNOCKBACK_FRICTION: float = 600.0  # ยิ่งมาก ยิ่งหยุดผลักเร็ว ปรับได้ตามฟีล
 
 var input_direction := Vector2.ZERO
 var can_attack :bool = true
@@ -45,13 +47,13 @@ func _process(delta: float) -> void:
 	pass
 
 func _physics_process(delta: float) -> void:
-	handle_movement()
+	handle_movement(delta)
 	handle_attack()
 	update_animation()
 	update_weapon_direction()
 
 # regular function
-func handle_movement() -> void:
+func handle_movement(delta: float) -> void:
 	input_direction = Input.get_vector(
 		"move_left",	
 		"move_right",
@@ -59,8 +61,13 @@ func handle_movement() -> void:
 		"move_down"
 	)
 	input_direction = input_direction.normalized()
-	velocity = input_direction * stats.speed
+	velocity = input_direction * stats.speed + knockback_velocity
 	move_and_slide()
+	
+	knockback_velocity = knockback_velocity.move_toward(Vector2.ZERO, KNOCKBACK_FRICTION * delta)
+
+func apply_knockback(force: Vector2) -> void:
+	knockback_velocity = force
 
 func handle_attack() -> void:
 	if Input.is_action_just_pressed("attack") and can_attack:
