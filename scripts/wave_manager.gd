@@ -22,6 +22,7 @@ func start_next_wave() -> void:
 		all_waves_completed.emit()
 		return
 
+	print("Wave %d started" % (current_wave_index + 1))
 	_spawn_wave(waves[current_wave_index])
 	wave_started.emit(current_wave_index + 1)
 
@@ -52,4 +53,5 @@ func check_wave_complete() -> void:
 		end_wave()
 
 func end_wave() -> void:
+	print("Wave %d complete" % (current_wave_index + 1))
 	wave_completed.emit(current_wave_index + 1)

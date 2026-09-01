@@ -27,6 +27,7 @@ func start_stage() -> void:
 	wave_manager.waves = stages[current_stage_index].waves
 	wave_manager.current_wave_index = -1
 
+	print("Stage %d started" % (current_stage_index + 1))
 	stage_started.emit(current_stage_index + 1)
 	start_next_wave()
 
@@ -40,6 +41,7 @@ func _on_wave_completed(_wave_number: int) -> void:
 	start_next_wave()
 
 func complete_stage() -> void:
+	print("Stage %d complete" % (current_stage_index + 1))
 	stage_completed.emit(current_stage_index + 1)
 	load_next_stage()
 

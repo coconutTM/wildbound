@@ -102,10 +102,10 @@ func update_animation() -> void:
 
 	var is_moving : bool = input_direction != Vector2.ZERO
 
-	if facing_down:
-		sprite.play("down_run" if is_moving else "down_idle")
+	if is_moving:
+		sprite.play("run")
 	else:
-		sprite.play("up_run" if is_moving else "up_idle")
+		sprite.play("idle")
 		
 
 func update_weapon_direction() -> void:
