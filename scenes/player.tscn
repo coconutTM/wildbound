@@ -188,7 +188,7 @@ height = 12.0
 radius = 7.0
 height = 16.0
 
-[node name="Player" type="CharacterBody2D" unique_id=1180064782]
+[node name="Player" type="CharacterBody2D" unique_id=1180064782 groups=["player"]]
 rotation = 0.028587205
 script = ExtResource("1_fjrip")
 stats = SubResource("Resource_fjrip")

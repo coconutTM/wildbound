@@ -8,11 +8,13 @@
 [ext_resource type="Script" uid="uid://bw1lopqlhwhyu" path="res://scripts/hurtbox.gd" id="6_xwavj"]
 
 [sub_resource type="Resource" id="Resource_iywne"]
+resource_local_to_scene = true
 script = ExtResource("3_xwavj")
 metadata/_custom_type_script = "uid://don3mrusxfqnn"
 
 [sub_resource type="Resource" id="Resource_lbhrr"]
 script = ExtResource("2_c4w8v")
+speed = 50.0
 faction = 1
 weapon = SubResource("Resource_iywne")
 metadata/_custom_type_script = "uid://bxn6loir4worr"

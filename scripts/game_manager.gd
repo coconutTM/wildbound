@@ -15,6 +15,7 @@ var state: State = State.MENU
 func _ready() -> void:
 	player.died.connect(_on_player_died)
 	stage_manager.all_stages_completed.connect(_on_all_stages_completed)
+	start_game()
 
 func start_game() -> void:
 	state = State.PLAYING

@@ -41,7 +41,7 @@ func _spawn_enemy(enemy_scene: PackedScene, spawn_point: Marker2D) -> void:
 	var enemy: Enemy = enemy_scene.instantiate()
 	enemy.global_position = spawn_point.global_position
 	enemy.died.connect(_on_enemy_died)
-	get_tree().current_scene.add_child(enemy)
+	get_tree().current_scene.add_child.call_deferred(enemy)
 
 func _on_enemy_died() -> void:
 	enemies_alive -= 1
