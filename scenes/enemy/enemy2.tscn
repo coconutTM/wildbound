@@ -13,6 +13,7 @@ script = ExtResource("3_ocr1r")
 metadata/_custom_type_script = "uid://don3mrusxfqnn"
 
 [sub_resource type="Resource" id="Resource_lbhrr"]
+resource_local_to_scene = true
 script = ExtResource("2_md2pb")
 max_health = 8
 speed = 100.0

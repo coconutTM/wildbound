@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Stage_Data" format=3 uid="uid://kfminleucydd"]
+
+[ext_resource type="Script" uid="uid://bbovnix7vn37i" path="res://scripts/stage_data.gd" id="1_fpmad"]
+[ext_resource type="Script" uid="uid://bsbychrocpt28" path="res://scripts/wave_data.gd" id="2_ldiit"]
+[ext_resource type="Resource" uid="uid://cjs1xnpko2mym" path="res://resources/wave_1.tres" id="3_qhgde"]
+[ext_resource type="Resource" uid="uid://g8jj11q611b3" path="res://resources/wave_2.tres" id="4_hgiri"]
+[ext_resource type="Resource" uid="uid://dfa55p0ct5rkq" path="res://resources/wave_3.tres" id="5_nr0b1"]
+[ext_resource type="Resource" uid="uid://dpxhquh6ikajy" path="res://resources/wave_4.tres" id="6_yp4ny"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_fpmad")
+waves = Array[ExtResource("2_ldiit")]([ExtResource("3_qhgde"), ExtResource("4_hgiri"), ExtResource("5_nr0b1"), ExtResource("6_yp4ny")])
+metadata/_custom_type_script = "uid://bbovnix7vn37i"

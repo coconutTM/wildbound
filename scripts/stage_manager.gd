@@ -15,6 +15,7 @@ var current_stage_index: int = -1
 
 func _ready() -> void:
 	wave_manager.all_waves_completed.connect(_on_all_waves_completed)
+	wave_manager.wave_completed.connect(_on_wave_completed)
 
 func start_stage() -> void:
 	current_stage_index += 1
@@ -34,6 +35,9 @@ func start_next_wave() -> void:
 
 func _on_all_waves_completed() -> void:
 	complete_stage()
+
+func _on_wave_completed(_wave_number: int) -> void:
+	start_next_wave()
 
 func complete_stage() -> void:
 	stage_completed.emit(current_stage_index + 1)

@@ -1,38 +1,40 @@
 [gd_scene format=3 uid="uid://osjp8gdwhcse"]
 
-[ext_resource type="Script" uid="uid://c0iecox87qasx" path="res://scripts/enemy.gd" id="1_4ra3w"]
-[ext_resource type="Texture2D" uid="uid://bbonq1b4tj1cm" path="res://assets/charactor/DeathSlime.png" id="1_7p1mj"]
-[ext_resource type="Script" uid="uid://bxn6loir4worr" path="res://scripts/character_stats.gd" id="2_c4w8v"]
-[ext_resource type="Script" uid="uid://ch40lrkskks3v" path="res://scripts/hitbox.gd" id="2_md0e3"]
-[ext_resource type="Script" uid="uid://don3mrusxfqnn" path="res://scripts/weapon_stats.gd" id="3_xwavj"]
-[ext_resource type="Script" uid="uid://bw1lopqlhwhyu" path="res://scripts/hurtbox.gd" id="6_xwavj"]
+[ext_resource type="Script" uid="uid://c0iecox87qasx" path="res://scripts/enemy.gd" id="1_cwlon"]
+[ext_resource type="Script" uid="uid://bxn6loir4worr" path="res://scripts/character_stats.gd" id="2_nbhyu"]
+[ext_resource type="Script" uid="uid://don3mrusxfqnn" path="res://scripts/weapon_stats.gd" id="3_13gj6"]
+[ext_resource type="Texture2D" uid="uid://bbonq1b4tj1cm" path="res://assets/charactor/DeathSlime.png" id="4_4efjx"]
+[ext_resource type="Script" uid="uid://ch40lrkskks3v" path="res://scripts/hitbox.gd" id="5_hvxgb"]
+[ext_resource type="Script" uid="uid://bw1lopqlhwhyu" path="res://scripts/hurtbox.gd" id="6_peoo5"]
 
 [sub_resource type="Resource" id="Resource_iywne"]
 resource_local_to_scene = true
-script = ExtResource("3_xwavj")
+script = ExtResource("3_13gj6")
 metadata/_custom_type_script = "uid://don3mrusxfqnn"
 
 [sub_resource type="Resource" id="Resource_lbhrr"]
-script = ExtResource("2_c4w8v")
+resource_local_to_scene = true
+script = ExtResource("2_nbhyu")
+max_health = 5
 speed = 50.0
 faction = 1
 weapon = SubResource("Resource_iywne")
 metadata/_custom_type_script = "uid://bxn6loir4worr"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_md0e3"]
-atlas = ExtResource("1_7p1mj")
+atlas = ExtResource("4_4efjx")
 region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4ra3w"]
-atlas = ExtResource("1_7p1mj")
+atlas = ExtResource("4_4efjx")
 region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5uy6h"]
-atlas = ExtResource("1_7p1mj")
+atlas = ExtResource("4_4efjx")
 region = Rect2(32, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c4w8v"]
-atlas = ExtResource("1_7p1mj")
+atlas = ExtResource("4_4efjx")
 region = Rect2(48, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_werv8"]
@@ -65,7 +67,7 @@ radius = 5.0
 radius = 7.0
 
 [node name="Enemy" type="CharacterBody2D" unique_id=1916641814 groups=["enemy"]]
-script = ExtResource("1_4ra3w")
+script = ExtResource("1_cwlon")
 stats = SubResource("Resource_lbhrr")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=1715859585]
@@ -78,7 +80,7 @@ position = Vector2(0, -5)
 shape = SubResource("CircleShape2D_3vbxy")
 
 [node name="AttackHitbox" type="Area2D" parent="." unique_id=1680340528]
-script = ExtResource("2_md0e3")
+script = ExtResource("5_hvxgb")
 metadata/_custom_type_script = "uid://ch40lrkskks3v"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox" unique_id=743936448]
@@ -88,7 +90,7 @@ shape = SubResource("CircleShape2D_werv8")
 [node name="AttackCooldown" type="Timer" parent="." unique_id=1778957278]
 
 [node name="Hurtbox" type="Area2D" parent="." unique_id=131936026]
-script = ExtResource("6_xwavj")
+script = ExtResource("6_peoo5")
 metadata/_custom_type_script = "uid://bw1lopqlhwhyu"
 
 [node name="Collision" type="CollisionShape2D" parent="Hurtbox" unique_id=1145454438]

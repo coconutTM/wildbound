@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Wave_Data" format=3 uid="uid://g8jj11q611b3"]
+
+[ext_resource type="Script" uid="uid://bsbychrocpt28" path="res://scripts/wave_data.gd" id="1_d2gni"]
+[ext_resource type="PackedScene" uid="uid://xfudpmqiid1d" path="res://scenes/enemy/enemy1.tscn" id="1_ef431"]
+[ext_resource type="PackedScene" uid="uid://paurop38krci" path="res://scenes/enemy/enemy2.tscn" id="2_n21ak"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_d2gni")
+enemies = Array[PackedScene]([ExtResource("1_ef431"), ExtResource("1_ef431"), ExtResource("2_n21ak"), ExtResource("2_n21ak")])
+metadata/_custom_type_script = "uid://bsbychrocpt28"
