@@ -1,8 +1,6 @@
+
 class_name Stage_Manager
 extends Node
-
-# StageManager จัดลำดับ stage เท่านั้น ไม่ spawn enemy เอง (ให้ wave_manager ทำ)
-# แค่ "ยัด" ชุด wave ของ stage ปัจจุบันเข้าไปใน wave_manager แล้วสั่งเริ่ม
 
 signal stage_started(stage_number: int)
 signal stage_completed(stage_number: int)
@@ -10,8 +8,11 @@ signal all_stages_completed
 
 @export var wave_manager: Wave_Manager
 @export var stages: Array[Stage_Data] = []
+@export var map_container: Node2D
+@export var player: Player
 
 var current_stage_index: int = -1
+var current_map: Node = null
 
 func _ready() -> void:
 	wave_manager.all_waves_completed.connect(_on_all_waves_completed)
@@ -24,12 +25,32 @@ func start_stage() -> void:
 		all_stages_completed.emit()
 		return
 
+	_load_map(stages[current_stage_index])
+
 	wave_manager.waves = stages[current_stage_index].waves
 	wave_manager.current_wave_index = -1
 
 	print("Stage %d started" % (current_stage_index + 1))
 	stage_started.emit(current_stage_index + 1)
 	start_next_wave()
+
+func _load_map(stage_data: Stage_Data) -> void:
+	if current_map:
+		current_map.queue_free()
+
+	current_map = stage_data.map_scene.instantiate()
+	map_container.add_child(current_map)
+
+	var spawn_points_node := current_map.get_node("SpawnPoints")
+	var points: Array[Marker2D] = []
+	for child in spawn_points_node.get_children():
+		if child is Marker2D:
+			points.append(child)
+	wave_manager.spawn_points = points
+
+	var player_start := current_map.get_node("PlayerStart") as Marker2D
+	if player_start and player:
+		player.global_position = player_start.global_position
 
 func start_next_wave() -> void:
 	wave_manager.start_next_wave()

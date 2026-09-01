@@ -25,9 +25,16 @@ func start_game() -> void:
 func _on_player_died() -> void:
 	game_over()
 
+
 func game_over() -> void:
 	state = State.GAME_OVER
 	game_over_triggered.emit()
+	get_tree().quit()
+
+func win_game() -> void:
+	state = State.WIN
+	game_won.emit()
+	get_tree().quit()
 
 # สำคัญ: reload_current_scene() จะรีเซ็ต node ทั้งหมดใหม่ (ตรงตาม spec
 # "ตาย -> เสียของ/อาวุธทั้งหมด -> เริ่ม Run ใหม่จากศูนย์")
@@ -39,7 +46,3 @@ func restart_game() -> void:
 
 func _on_all_stages_completed() -> void:
 	win_game()
-
-func win_game() -> void:
-	state = State.WIN
-	game_won.emit()
