@@ -22,6 +22,7 @@ func _init() -> void:
 
 func take_damage(amount: int) -> void:
 	current_health -= amount
+	print(current_health)
 
 func initialize_stats() -> void:
 	if not weapon:

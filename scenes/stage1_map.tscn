@@ -2,6 +2,7 @@
 
 [ext_resource type="TileSet" uid="uid://bjx8ysrhfq0yq" path="res://resources/tileset/tileset.tres" id="1_ht0fc"]
 [ext_resource type="Texture2D" uid="uid://daay8sf0xcxgl" path="res://assets/tileset/beach.png" id="2_arwov"]
+[ext_resource type="PackedScene" uid="uid://cbnanhq1ccl60" path="res://scenes/invisible_wall.tscn" id="3_4fbg0"]
 
 [node name="Stage1_map" type="Node2D" unique_id=1685842391]
 z_index = -1
@@ -33,3 +34,47 @@ metadata/_edit_lock_ = true
 
 [node name="PlayerStart" type="Marker2D" parent="." unique_id=2136147089]
 position = Vector2(413, 837)
+
+[node name="Invisible_walls" type="Node2D" parent="." unique_id=596194880]
+
+[node name="Invisible_wall" parent="Invisible_walls" unique_id=1113439160 instance=ExtResource("3_4fbg0")]
+position = Vector2(-40, -11)
+
+[node name="Invisible_wall2" parent="Invisible_walls" unique_id=1110163781 instance=ExtResource("3_4fbg0")]
+position = Vector2(-27, 910)
+
+[node name="Invisible_wall3" parent="Invisible_walls" unique_id=1900749249 instance=ExtResource("3_4fbg0")]
+position = Vector2(1811, 0)
+rotation = 1.5707964
+
+[node name="Invisible_wall4" parent="Invisible_walls" unique_id=875835540 instance=ExtResource("3_4fbg0")]
+position = Vector2(-9, -11)
+rotation = 1.5707964
+
+[node name="Invisible_wall5" parent="Invisible_walls" unique_id=1247316602 instance=ExtResource("3_4fbg0")]
+position = Vector2(616, 447.00003)
+rotation = 2.6179938
+
+[node name="Invisible_wall8" parent="Invisible_walls" unique_id=1420832445 instance=ExtResource("3_4fbg0")]
+position = Vector2(616, 447.00003)
+rotation = 4.0923076
+
+[node name="Invisible_wall9" parent="Invisible_walls" unique_id=2143206023 instance=ExtResource("3_4fbg0")]
+position = Vector2(716, 222.00003)
+rotation = 4.0923076
+
+[node name="Invisible_wall10" parent="Invisible_walls" unique_id=1562576381 instance=ExtResource("3_4fbg0")]
+position = Vector2(921, 346.99997)
+rotation = 4.0923076
+
+[node name="Invisible_wall11" parent="Invisible_walls" unique_id=1368692033 instance=ExtResource("3_4fbg0")]
+position = Vector2(3305, -1408)
+rotation = 2.5773535
+
+[node name="Invisible_wall7" parent="Invisible_walls" unique_id=2049506953 instance=ExtResource("3_4fbg0")]
+position = Vector2(3589.9998, -1149)
+rotation = 2.6275287
+
+[node name="Invisible_wall6" parent="Invisible_walls" unique_id=370891249 instance=ExtResource("3_4fbg0")]
+position = Vector2(2957, -238)
+rotation = 2.6179938

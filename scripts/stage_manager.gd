@@ -39,7 +39,7 @@ func _load_map(stage_data: Stage_Data) -> void:
 		current_map.queue_free()
 
 	current_map = stage_data.map_scene.instantiate()
-	map_container.add_child(current_map)
+	map_container.add_child.call_deferred(current_map)
 
 	var spawn_points_node := current_map.get_node("SpawnPoints")
 	var points: Array[Marker2D] = []

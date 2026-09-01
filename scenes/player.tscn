@@ -127,6 +127,7 @@ height = 16.0
 
 [node name="Player" type="CharacterBody2D" unique_id=1180064782 groups=["player"]]
 scale = Vector2(2, 2)
+collision_mask = 65
 script = ExtResource("1_fjrip")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=2074498708]

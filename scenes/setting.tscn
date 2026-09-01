@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://m776w1j3vtn0"]
+
+[ext_resource type="Texture2D" uid="uid://b5gckyva3t4ql" path="res://assets/Menu/Background.png" id="1_31ui4"]
+[ext_resource type="Texture2D" uid="uid://oh30fuaie4s6" path="res://assets/Menu/Wildbound_logo.png" id="2_o8tsb"]
+[ext_resource type="Texture2D" uid="uid://b1rarfm5qu2bh" path="res://assets/Menu/Exit-button.png" id="3_ikx14"]
+[ext_resource type="Texture2D" uid="uid://c5asysodfxlwh" path="res://assets/Menu/Play-button.png" id="4_50131"]
+[ext_resource type="Texture2D" uid="uid://dx325vf34tw2q" path="res://assets/Menu/Setting-button.png" id="5_rawaq"]
+
+[node name="Setting" type="Node2D" unique_id=1998809874]
+
+[node name="UI" type="Control" parent="." unique_id=1336252483]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1921.0
+offset_bottom = 1080.0
+
+[node name="Background" type="Sprite2D" parent="." unique_id=897470965]
+position = Vector2(959.99994, 540.75)
+scale = Vector2(1.4588413, 1.348125)
+texture = ExtResource("1_31ui4")
+
+[node name="WildboundLogo" type="Sprite2D" parent="." unique_id=920378218]
+position = Vector2(983, 721)
+texture = ExtResource("2_o8tsb")
+
+[node name="ExitButton" type="Sprite2D" parent="." unique_id=1728041023]
+position = Vector2(264, 464)
+texture = ExtResource("3_ikx14")
+
+[node name="PlayButton" type="Sprite2D" parent="." unique_id=88058048]
+position = Vector2(1597, 421)
+texture = ExtResource("4_50131")
+
+[node name="SettingButton" type="Sprite2D" parent="." unique_id=443700602]
+position = Vector2(1049, 162)
+texture = ExtResource("5_rawaq")

@@ -61,12 +61,13 @@ animations = [{
 radius = 5.0990195
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_werv8"]
-radius = 5.0
+radius = 7.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pq5ea"]
 radius = 7.0
 
 [node name="Enemy" type="CharacterBody2D" unique_id=1916641814 groups=["enemy"]]
+visibility_layer = 65
 scale = Vector2(2, 2)
 script = ExtResource("1_cwlon")
 stats = SubResource("Resource_lbhrr")
@@ -85,6 +86,7 @@ script = ExtResource("5_hvxgb")
 metadata/_custom_type_script = "uid://ch40lrkskks3v"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox" unique_id=743936448]
+visibility_layer = 65
 position = Vector2(0, -5)
 shape = SubResource("CircleShape2D_werv8")
 

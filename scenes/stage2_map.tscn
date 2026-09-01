@@ -2,6 +2,7 @@
 
 [ext_resource type="TileSet" uid="uid://bjx8ysrhfq0yq" path="res://resources/tileset/tileset.tres" id="1_wvjgs"]
 [ext_resource type="Texture2D" uid="uid://dmwveoph12ipt" path="res://assets/tileset/lava_cave.png" id="2_j3aik"]
+[ext_resource type="PackedScene" uid="uid://cbnanhq1ccl60" path="res://scenes/invisible_wall.tscn" id="3_bhe3v"]
 
 [node name="Stage2_map" type="Node2D" unique_id=1089179564]
 z_index = -1
@@ -27,3 +28,19 @@ position = Vector2(0, -42)
 
 [node name="Marker2D2" type="Marker2D" parent="SpawnPoints" unique_id=274752807]
 position = Vector2(0, -163)
+
+[node name="Invisible_walls" type="Node2D" parent="." unique_id=384944757]
+
+[node name="Invisible_wall" parent="Invisible_walls" unique_id=1113439160 instance=ExtResource("3_bhe3v")]
+position = Vector2(-288, 289)
+
+[node name="Invisible_wall3" parent="Invisible_walls" unique_id=417542944 instance=ExtResource("3_bhe3v")]
+position = Vector2(0, 289)
+rotation = 1.5707964
+
+[node name="Invisible_wall4" parent="Invisible_walls" unique_id=365140265 instance=ExtResource("3_bhe3v")]
+position = Vector2(1800, 289)
+rotation = 1.5707964
+
+[node name="Invisible_wall2" parent="Invisible_walls" unique_id=589580703 instance=ExtResource("3_bhe3v")]
+position = Vector2(-497, 688)

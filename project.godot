@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="wildbound"
-run/main_scene="uid://ct4qbapmusi5t"
+run/main_scene="uid://cuiu2lhryif6o"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -67,6 +67,7 @@ attack={
 2d_render/layer_4="Enemy Hitbox"
 2d_render/layer_5="Player Hurtbox"
 2d_render/layer_6="Enemy Hurtbox"
+2d_render/layer_7="World"
 2d_physics/layer_1="Player"
 2d_physics/layer_2="Enemy"
 2d_physics/layer_3="Player Hitbox"

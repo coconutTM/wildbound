@@ -73,7 +73,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3vbxy"]
-radius = 5.0990195
+radius = 7.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_werv8"]
 radius = 5.0
@@ -82,6 +82,7 @@ radius = 5.0
 radius = 7.0
 
 [node name="Enemy" type="CharacterBody2D" unique_id=1916641814 groups=["enemy"]]
+visibility_layer = 65
 scale = Vector2(2, 2)
 script = ExtResource("1_8tfq7")
 stats = SubResource("Resource_lbhrr")

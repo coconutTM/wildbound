@@ -41,7 +41,7 @@ metadata/_custom_type_script = "uid://bj7ukggwavf3s"
 [node name="Wave_Manager" type="Node" parent="." unique_id=1557656961 node_paths=PackedStringArray("spawn_points")]
 script = ExtResource("1_85g3d")
 waves = Array[ExtResource("2_choun")]([ExtResource("3_ya4ey"), ExtResource("9_trceg"), ExtResource("10_a8y0u"), ExtResource("11_jkv2x")])
-spawn_points = [NodePath(""), NodePath(""), NodePath(""), NodePath("")]
+spawn_points = [null, null, null, null]
 metadata/_custom_type_script = "uid://b1jnjyrx1x0ad"
 
 [node name="Player" parent="." unique_id=1180064782 instance=ExtResource("5_trceg")]
@@ -50,6 +50,10 @@ stats = SubResource("Resource_trceg")
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=1586936513]
 position = Vector2(-0.2286663, -7.9967318)
 zoom = Vector2(1.785, 1.785)
+limit_left = 0
+limit_top = 0
+limit_right = 1800
+limit_bottom = 900
 
 [node name="MapContainer" type="Node2D" parent="." unique_id=1432995475]
 

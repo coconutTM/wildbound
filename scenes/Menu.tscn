@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://cuiu2lhryif6o"]
+
+[ext_resource type="Script" uid="uid://yd336h8k7ix8" path="res://scripts/menu.gd" id="1_aaywf"]
+[ext_resource type="Texture2D" uid="uid://b5gckyva3t4ql" path="res://assets/Menu/Background.png" id="1_upctu"]
+[ext_resource type="Texture2D" uid="uid://oh30fuaie4s6" path="res://assets/Menu/Wildbound_logo.png" id="1_xdvgc"]
+[ext_resource type="Texture2D" uid="uid://c5asysodfxlwh" path="res://assets/Menu/Play-button.png" id="2_jmdev"]
+[ext_resource type="Texture2D" uid="uid://b1rarfm5qu2bh" path="res://assets/Menu/Exit-button.png" id="4_aaywf"]
+[ext_resource type="Texture2D" uid="uid://b8xj1hrabtt0y" path="res://assets/Menu/mute-audio.png" id="6_b6cxs"]
+[ext_resource type="Texture2D" uid="uid://qrqj3nivj54e" path="res://assets/Menu/audio.png" id="7_aaywf"]
+
+[node name="Menu" type="Node2D" unique_id=888753719]
+script = ExtResource("1_aaywf")
+
+[node name="UI" type="Control" parent="." unique_id=310401211]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1921.0
+offset_bottom = 1075.0
+
+[node name="Background" type="Sprite2D" parent="UI" unique_id=1265684788]
+position = Vector2(960.5, 543)
+scale = Vector2(1.4626524, 1.36)
+texture = ExtResource("1_upctu")
+
+[node name="btnPlay" type="TextureButton" parent="UI" unique_id=1140463901]
+layout_mode = 0
+offset_left = 757.0
+offset_top = 553.0
+offset_right = 1214.0
+offset_bottom = 695.0
+texture_normal = ExtResource("2_jmdev")
+
+[node name="btnExit" type="TextureButton" parent="UI" unique_id=367860200]
+layout_mode = 0
+offset_left = 753.0
+offset_top = 766.0
+offset_right = 1206.0
+offset_bottom = 909.0
+texture_normal = ExtResource("4_aaywf")
+
+[node name="WildboundLogo" type="Sprite2D" parent="UI" unique_id=143797258]
+position = Vector2(970, 283)
+scale = Vector2(0.97714293, 0.8757143)
+texture = ExtResource("1_xdvgc")
+
+[node name="btnSoundToggle" type="TextureButton" parent="UI" unique_id=1769059379]
+layout_mode = 0
+offset_left = 25.0
+offset_top = -7.0
+offset_right = 225.0
+offset_bottom = 193.0
+toggle_mode = true
+texture_normal = ExtResource("6_b6cxs")
+texture_pressed = ExtResource("7_aaywf")
+
+[connection signal="pressed" from="UI/btnPlay" to="." method="_on_btn_play_pressed"]
+[connection signal="pressed" from="UI/btnExit" to="." method="_on_btn_exit_pressed"]
+[connection signal="pressed" from="UI/btnSoundToggle" to="." method="_on_texture_button_pressed"]

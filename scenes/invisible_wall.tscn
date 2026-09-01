@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://cbnanhq1ccl60"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_werv8"]
+size = Vector2(3074, 20)
+
+[node name="Invisible_wall" type="Node2D" unique_id=1113439160]
+light_mask = 64
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=118503880]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=248682815]
+position = Vector2(1527, 0)
+shape = SubResource("RectangleShape2D_werv8")
+debug_color = Color(0.34104937, 0.48624438, 1, 0.41960785)

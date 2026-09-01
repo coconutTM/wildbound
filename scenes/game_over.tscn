@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://b772mn70c70uv"]
+
+[ext_resource type="Script" uid="uid://ck46ywjl2ukxa" path="res://scripts/game_over.gd" id="1_racf3"]
+[ext_resource type="Texture2D" uid="uid://boshjwdhcgu8" path="res://assets/Menu/Black-wall.png" id="1_xeevv"]
+[ext_resource type="Texture2D" uid="uid://bvq1t0mwbonoi" path="res://assets/Menu/back2menu.png" id="2_wqhvx"]
+[ext_resource type="Texture2D" uid="uid://cg2qma21qc7us" path="res://assets/Menu/Gameover.png" id="3_tbwuq"]
+
+[node name="GameOver" type="Node2D" unique_id=364058942]
+script = ExtResource("1_racf3")
+
+[node name="UI" type="Control" parent="." unique_id=1577039389]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1921.0
+offset_bottom = 1079.0
+
+[node name="BlackWall" type="Sprite2D" parent="UI" unique_id=1939563134]
+position = Vector2(961, 540.5)
+scale = Vector2(16.393162, 12.146068)
+texture = ExtResource("1_xeevv")
+
+[node name="Gameover" type="Sprite2D" parent="UI" unique_id=964469052]
+position = Vector2(985, 351)
+scale = Vector2(1.207907, 1)
+texture = ExtResource("3_tbwuq")
+
+[node name="btnBackToMenu" type="TextureButton" parent="UI" unique_id=439640431]
+layout_mode = 0
+offset_left = 475.0
+offset_top = 673.0
+offset_right = 1521.0
+offset_bottom = 1004.0
+texture_normal = ExtResource("2_wqhvx")
+
+[connection signal="pressed" from="UI/btnBackToMenu" to="." method="_on_btn_back_to_menu_pressed"]
