@@ -1,0 +1,367 @@
+diff --git a/scenes/Menu.tscn b/scenes/Menu.tscn
+index c56347c..10d665a 100644
+--- a/scenes/Menu.tscn
++++ b/scenes/Menu.tscn
+@@ -53,6 +53,16 @@ toggle_mode = true
+ texture_normal = ExtResource("6_b6cxs")
+ texture_pressed = ExtResource("7_aaywf")
+ 
++[node name="btnCredits" type="Button" parent="UI"]
++layout_mode = 0
++offset_left = 1560.0
++offset_top = 860.0
++offset_right = 1860.0
++offset_bottom = 940.0
++theme_override_font_sizes/font_size = 28
++text = "Credits"
++
+ [connection signal="pressed" from="UI/btnPlay" to="." method="_on_btn_play_pressed"]
++[connection signal="pressed" from="UI/btnCredits" to="." method="_on_btn_credits_pressed"]
+ [connection signal="pressed" from="UI/btnExit" to="." method="_on_btn_exit_pressed"]
+ [connection signal="pressed" from="UI/btnSoundToggle" to="." method="_on_texture_button_pressed"]
+diff --git a/scenes/credits.tscn b/scenes/credits.tscn
+new file mode 100644
+index 0000000..12d4e3c
+--- /dev/null
++++ b/scenes/credits.tscn
+@@ -0,0 +1,62 @@
++[gd_scene load_steps=4 format=3]
++
++[ext_resource type="Script" path="res://scripts/credits.gd" id="1_credits"]
++[ext_resource type="Texture2D" uid="uid://b5gckyva3t4ql" path="res://assets/Menu/Background.png" id="1_bg"]
++[ext_resource type="Texture2D" uid="uid://bvq1t0mwbonoi" path="res://assets/Menu/back2menu.png" id="2_wqhvx"]
++
++[node name="Credits" type="Node2D"]
++script = ExtResource("1_credits")
++
++[node name="UI" type="Control" parent="."]
++layout_mode = 3
++anchors_preset = 0
++offset_right = 1921.0
++offset_bottom = 1075.0
++
++[node name="Background" type="Sprite2D" parent="UI"]
++position = Vector2(960.5, 543)
++scale = Vector2(1.4626524, 1.36)
++texture = ExtResource("1_bg")
++
++[node name="TitleLabel" type="Label" parent="UI"]
++layout_mode = 0
++offset_left = 660.0
++offset_top = 100.0
++offset_right = 1260.0
++offset_bottom = 200.0
++theme_override_font_sizes/font_size = 56
++theme_override_colors/font_color = Color(1, 1, 1, 1)
++theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
++theme_override_constants/outline_size = 8
++horizontal_alignment = 1
++text = "Credits"
++
++[node name="CreditsText" type="RichTextLabel" parent="UI"]
++layout_mode = 0
++offset_left = 560.0
++offset_top = 260.0
++offset_right = 1360.0
++offset_bottom = 780.0
++theme_override_font_sizes/normal_font_size = 24
++theme_override_colors/default_color = Color(1, 1, 1, 1)
++bbcode_enabled = true
++text = "[center][TODO: ใส่รายชื่อ/ทีมจริงตรงนี้]
++
++Design & Programming
++- (ชื่อ)
++
++Art
++- (ชื่อ)
++
++Made with Godot 4.7[/center]"
++fit_content = true
++
++[node name="btnBackToMenu" type="TextureButton" parent="UI"]
++layout_mode = 0
++offset_left = 475.0
++offset_top = 900.0
++offset_right = 1521.0
++offset_bottom = 1075.0
++texture_normal = ExtResource("2_wqhvx")
++
++[connection signal="pressed" from="UI/btnBackToMenu" to="." method="_on_btn_back_to_menu_pressed"]
+diff --git a/scenes/hud.tscn b/scenes/hud.tscn
+new file mode 100644
+index 0000000..91d0896
+--- /dev/null
++++ b/scenes/hud.tscn
+@@ -0,0 +1,84 @@
++[gd_scene load_steps=2 format=3]
++
++[ext_resource type="Script" path="res://scripts/hud.gd" id="1_hud"]
++
++[node name="HUD" type="CanvasLayer"]
++script = ExtResource("1_hud")
++
++[node name="Control" type="Control" parent="."]
++layout_mode = 3
++anchors_preset = 0
++offset_right = 1921.0
++offset_bottom = 1079.0
++mouse_filter = 2
++
++[node name="HealthPanel" type="VBoxContainer" parent="Control"]
++layout_mode = 0
++offset_left = 24.0
++offset_top = 24.0
++offset_right = 344.0
++offset_bottom = 120.0
++theme_override_constants/separation = 4
++
++[node name="HealthBar" type="ProgressBar" parent="Control/HealthPanel"]
++custom_minimum_size = Vector2(320, 22)
++layout_mode = 2
++max_value = 10.0
++value = 10.0
++show_percentage = false
++
++[node name="HealthLabel" type="Label" parent="Control/HealthPanel"]
++layout_mode = 2
++theme_override_font_sizes/font_size = 18
++theme_override_colors/font_color = Color(1, 1, 1, 1)
++theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
++theme_override_constants/outline_size = 4
++text = "10 / 10"
++
++[node name="WeaponLabel" type="Label" parent="Control/HealthPanel"]
++layout_mode = 2
++theme_override_font_sizes/font_size = 18
++theme_override_colors/font_color = Color(1, 1, 1, 1)
++theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
++theme_override_constants/outline_size = 4
++text = "Weapon: -"
++
++[node name="ComponentsPanel" type="VBoxContainer" parent="Control"]
++layout_mode = 0
++offset_left = 24.0
++offset_top = 132.0
++offset_right = 224.0
++offset_bottom = 260.0
++theme_override_constants/separation = 2
++
++[node name="WoodLabel" type="Label" parent="Control/ComponentsPanel"]
++layout_mode = 2
++theme_override_font_sizes/font_size = 16
++theme_override_colors/font_color = Color(1, 1, 1, 1)
++theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
++theme_override_constants/outline_size = 3
++text = "Wood: 0"
++
++[node name="StoneLabel" type="Label" parent="Control/ComponentsPanel"]
++layout_mode = 2
++theme_override_font_sizes/font_size = 16
++theme_override_colors/font_color = Color(1, 1, 1, 1)
++theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
++theme_override_constants/outline_size = 3
++text = "Stone: 0"
++
++[node name="BoneLabel" type="Label" parent="Control/ComponentsPanel"]
++layout_mode = 2
++theme_override_font_sizes/font_size = 16
++theme_override_colors/font_color = Color(1, 1, 1, 1)
++theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
++theme_override_constants/outline_size = 3
++text = "Bone: 0"
++
++[node name="FiberLabel" type="Label" parent="Control/ComponentsPanel"]
++layout_mode = 2
++theme_override_font_sizes/font_size = 16
++theme_override_colors/font_color = Color(1, 1, 1, 1)
++theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
++theme_override_constants/outline_size = 3
++text = "Fiber: 0"
+diff --git a/scenes/main.tscn b/scenes/main.tscn
+index f72b6c5..7581daf 100644
+--- a/scenes/main.tscn
++++ b/scenes/main.tscn
+@@ -15,6 +15,7 @@
+ [ext_resource type="Resource" uid="uid://dpxhquh6ikajy" path="res://resources/wave_4.tres" id="11_jkv2x"]
+ [ext_resource type="Resource" uid="uid://bwc3gdas5a4p3" path="res://resources/weapons/komfaek.tres" id="14_jkv2x"]
+ [ext_resource type="PackedScene" uid="uid://tb4eq478k8jb" path="res://scenes/fade_transiiton.tscn" id="15_jkv2x"]
++[ext_resource type="PackedScene" path="res://scenes/hud.tscn" id="16_hud"]
+ 
+ [sub_resource type="Resource" id="Resource_trceg"]
+ script = ExtResource("7_jkv2x")
+@@ -58,3 +59,6 @@ limit_bottom = 900
+ [node name="MapContainer" type="Node2D" parent="." unique_id=1432995475]
+ 
+ [node name="fade_transiiton" parent="MapContainer" unique_id=188825390 instance=ExtResource("15_jkv2x")]
++
++[node name="HUD" parent="." instance=ExtResource("16_hud") node_paths=PackedStringArray("player")]
++player = NodePath("../Player")
+diff --git a/scenes/win.tscn b/scenes/win.tscn
+new file mode 100644
+index 0000000..61dc369
+--- /dev/null
++++ b/scenes/win.tscn
+@@ -0,0 +1,43 @@
++[gd_scene load_steps=4 format=3]
++
++[ext_resource type="Script" path="res://scripts/win.gd" id="1_win"]
++[ext_resource type="Texture2D" uid="uid://boshjwdhcgu8" path="res://assets/Menu/Black-wall.png" id="1_xeevv"]
++[ext_resource type="Texture2D" uid="uid://bvq1t0mwbonoi" path="res://assets/Menu/back2menu.png" id="2_wqhvx"]
++
++[node name="Win" type="Node2D"]
++script = ExtResource("1_win")
++
++[node name="UI" type="Control" parent="."]
++layout_mode = 3
++anchors_preset = 0
++offset_right = 1921.0
++offset_bottom = 1079.0
++
++[node name="BlackWall" type="Sprite2D" parent="UI"]
++position = Vector2(961, 540.5)
++scale = Vector2(16.393162, 12.146068)
++texture = ExtResource("1_xeevv")
++
++[node name="TitleLabel" type="Label" parent="UI"]
++layout_mode = 0
++offset_left = 460.0
++offset_top = 260.0
++offset_right = 1460.0
++offset_bottom = 420.0
++theme_override_font_sizes/font_size = 96
++theme_override_colors/font_color = Color(1, 0.85, 0.2, 1)
++theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
++theme_override_constants/outline_size = 10
++horizontal_alignment = 1
++vertical_alignment = 1
++text = "YOU WIN!"
++
++[node name="btnBackToMenu" type="TextureButton" parent="UI"]
++layout_mode = 0
++offset_left = 475.0
++offset_top = 673.0
++offset_right = 1521.0
++offset_bottom = 1004.0
++texture_normal = ExtResource("2_wqhvx")
++
++[connection signal="pressed" from="UI/btnBackToMenu" to="." method="_on_btn_back_to_menu_pressed"]
+diff --git a/scripts/credits.gd b/scripts/credits.gd
+new file mode 100644
+index 0000000..06a79de
+--- /dev/null
++++ b/scripts/credits.gd
+@@ -0,0 +1,9 @@
++extends Node2D
++
++
++func _ready() -> void:
++	$UI.size = get_viewport_rect().size
++
++
++func _on_btn_back_to_menu_pressed() -> void:
++	get_tree().change_scene_to_file("res://scenes/Menu.tscn")
+diff --git a/scripts/game_manager.gd b/scripts/game_manager.gd
+index a0778a9..2dcf291 100644
+--- a/scripts/game_manager.gd
++++ b/scripts/game_manager.gd
+@@ -35,7 +35,7 @@ func game_over() -> void:
+ func win_game() -> void:
+ 	state = State.WIN
+ 	game_won.emit()
+-	get_tree().quit()
++	get_tree().change_scene_to_file.call_deferred("res://scenes/win.tscn")
+ 
+ # สำคัญ: reload_current_scene() จะรีเซ็ต node ทั้งหมดใหม่ (ตรงตาม spec
+ # "ตาย -> เสียของ/อาวุธทั้งหมด -> เริ่ม Run ใหม่จากศูนย์")
+diff --git a/scripts/hud.gd b/scripts/hud.gd
+new file mode 100644
+index 0000000..b373bc2
+--- /dev/null
++++ b/scripts/hud.gd
+@@ -0,0 +1,44 @@
++class_name HUD
++extends CanvasLayer
++
++## ผูกใน editor: ลาก node Player เข้ามาใส่ export นี้
++@export var player: Player
++
++@onready var health_bar: ProgressBar = $Control/HealthPanel/HealthBar
++@onready var health_label: Label = $Control/HealthPanel/HealthLabel
++@onready var weapon_label: Label = $Control/HealthPanel/WeaponLabel
++@onready var wood_label: Label = $Control/ComponentsPanel/WoodLabel
++@onready var stone_label: Label = $Control/ComponentsPanel/StoneLabel
++@onready var bone_label: Label = $Control/ComponentsPanel/BoneLabel
++@onready var fiber_label: Label = $Control/ComponentsPanel/FiberLabel
++
++
++func _ready() -> void:
++	$Control.size = get_viewport_rect().size
++
++	player.stats.health_changed.connect(_on_health_changed)
++	player.weapon_changed.connect(_on_weapon_changed)
++	player.components_changed.connect(_on_components_changed)
++
++	# เซ็ตค่าเริ่มต้นทันทีตอนเข้าเกม ไม่ต้องรอ signal แรกยิง
++	# (กัน race condition ตอน stats.initialize_stats() เป็น call_deferred)
++	_on_health_changed(player.stats.current_health, player.stats.max_health)
++	_on_weapon_changed()
++	_on_components_changed()
++
++
++func _on_health_changed(current_health: int, max_health: int) -> void:
++	health_bar.max_value = max_health
++	health_bar.value = current_health
++	health_label.text = "%d / %d" % [current_health, max_health]
++
++
++func _on_weapon_changed() -> void:
++	weapon_label.text = "Weapon: %s" % player.stats.weapon.weapon_name if player.stats.weapon else "Weapon: -"
++
++
++func _on_components_changed() -> void:
++	wood_label.text = "Wood: %d" % player.components.get("wood", 0)
++	stone_label.text = "Stone: %d" % player.components.get("stone", 0)
++	bone_label.text = "Bone: %d" % player.components.get("bone", 0)
++	fiber_label.text = "Fiber: %d" % player.components.get("fiber", 0)
+diff --git a/scripts/menu.gd b/scripts/menu.gd
+index 3691c8e..dcced0c 100644
+--- a/scripts/menu.gd
++++ b/scripts/menu.gd
+@@ -12,6 +12,10 @@ func _on_btn_exit_pressed() -> void:
+ 	get_tree().quit()
+ 
+ 
++func _on_btn_credits_pressed() -> void:
++	get_tree().change_scene_to_file("res://scenes/credits.tscn")
++
++
+ func _on_texture_button_pressed() -> void:
+ 	pass # Replace with function body.
+ 
+diff --git a/scripts/player.gd b/scripts/player.gd
+index a89460a..b8f56b0 100644
+--- a/scripts/player.gd
++++ b/scripts/player.gd
+@@ -84,6 +84,7 @@ func die() -> void:
+ func equip_weapon(new_weapon: Weapon_Stats):
+ 	stats.weapon = new_weapon
+ 	stats.damage = new_weapon.damage
++	weapon_changed.emit()
+ 	
+ func add_component(type: String, amount: int) -> void:
+ 	type = type.to_lower()
+diff --git a/scripts/win.gd b/scripts/win.gd
+new file mode 100644
+index 0000000..06a79de
+--- /dev/null
++++ b/scripts/win.gd
+@@ -0,0 +1,9 @@
++extends Node2D
++
++
++func _ready() -> void:
++	$UI.size = get_viewport_rect().size
++
++
++func _on_btn_back_to_menu_pressed() -> void:
++	get_tree().change_scene_to_file("res://scenes/Menu.tscn")

@@ -35,7 +35,7 @@ func game_over() -> void:
 func win_game() -> void:
 	state = State.WIN
 	game_won.emit()
-	get_tree().quit()
+	get_tree().change_scene_to_file.call_deferred("res://scenes/win.tscn")
 
 # สำคัญ: reload_current_scene() จะรีเซ็ต node ทั้งหมดใหม่ (ตรงตาม spec
 # "ตาย -> เสียของ/อาวุธทั้งหมด -> เริ่ม Run ใหม่จากศูนย์")

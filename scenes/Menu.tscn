@@ -53,6 +53,16 @@ toggle_mode = true
 texture_normal = ExtResource("6_b6cxs")
 texture_pressed = ExtResource("7_aaywf")
 
+[node name="btnCredits" type="Button" parent="UI"]
+layout_mode = 0
+offset_left = 1560.0
+offset_top = 860.0
+offset_right = 1860.0
+offset_bottom = 940.0
+theme_override_font_sizes/font_size = 28
+text = "Credits"
+
 [connection signal="pressed" from="UI/btnPlay" to="." method="_on_btn_play_pressed"]
+[connection signal="pressed" from="UI/btnCredits" to="." method="_on_btn_credits_pressed"]
 [connection signal="pressed" from="UI/btnExit" to="." method="_on_btn_exit_pressed"]
 [connection signal="pressed" from="UI/btnSoundToggle" to="." method="_on_texture_button_pressed"]

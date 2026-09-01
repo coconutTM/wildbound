@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://dq6ivckg4fon1"]
+
+[ext_resource type="Texture2D" uid="uid://b5gckyva3t4ql" path="res://assets/Menu/Background.png" id="1_bg"]
+[ext_resource type="Script" uid="uid://conafsd51t8jp" path="res://scripts/credits.gd" id="1_credits"]
+[ext_resource type="Texture2D" uid="uid://bvq1t0mwbonoi" path="res://assets/Menu/back2menu.png" id="2_wqhvx"]
+[ext_resource type="FontFile" uid="uid://de15mely1j7pf" path="res://assets/font/Sarabun-Regular.ttf" id="3_2fbfq"]
+
+[node name="Credits" type="Node2D" unique_id=384279820]
+script = ExtResource("1_credits")
+
+[node name="UI" type="Control" parent="." unique_id=434844138]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1921.0
+offset_bottom = 1075.0
+
+[node name="Background" type="Sprite2D" parent="UI" unique_id=1586411278]
+position = Vector2(960.5, 543)
+scale = Vector2(1.4626524, 1.36)
+texture = ExtResource("1_bg")
+
+[node name="TitleLabel" type="Label" parent="UI" unique_id=830018523]
+layout_mode = 0
+offset_left = 660.0
+offset_top = 100.0
+offset_right = 1260.0
+offset_bottom = 200.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 56
+text = "Credits"
+horizontal_alignment = 1
+
+[node name="CreditsText" type="RichTextLabel" parent="UI" unique_id=1598769701]
+layout_mode = 0
+offset_left = 560.0
+offset_top = 260.0
+offset_right = 1360.0
+offset_bottom = 780.0
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_fonts/normal_font = ExtResource("3_2fbfq")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "[center]683380290-0 นายฐากูร มูลวิชา 
+683380294-2 นายธนกร มีฤทธิ์ 
+683380299-2 นายธันยบูรณ์ สินเธาว์ 
+683380304-5 นายปรเมษฐ์ จันทมิฬ
+"
+fit_content = true
+
+[node name="btnBackToMenu" type="TextureButton" parent="UI" unique_id=1032502655]
+layout_mode = 0
+offset_left = 453.0
+offset_top = 668.0
+offset_right = 1499.0
+offset_bottom = 999.0
+texture_normal = ExtResource("2_wqhvx")
+
+[connection signal="pressed" from="UI/btnBackToMenu" to="." method="_on_btn_back_to_menu_pressed"]

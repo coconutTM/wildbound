@@ -84,6 +84,7 @@ func die() -> void:
 func equip_weapon(new_weapon: Weapon_Stats):
 	stats.weapon = new_weapon
 	stats.damage = new_weapon.damage
+	weapon_changed.emit()
 	
 func add_component(type: String, amount: int) -> void:
 	type = type.to_lower()
