@@ -32,6 +32,7 @@ func open() -> void:
 	if opened:
 		return
 	opened = true
+	SFX.play("chest_open")
 	drop_loot()
 	queue_free()  # ถ้าอยากให้กล่องค้างอยู่ในฉากแบบ "เปิดแล้ว" ให้เปลี่ยนเป็นสลับ sprite แทน queue_free()
 

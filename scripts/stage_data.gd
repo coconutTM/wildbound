@@ -7,3 +7,6 @@ class_name Stage_Data extends Resource
 ## map scene ของ stage นี้ — ต้องมีลูกชื่อ "SpawnPoints" (มี Marker2D ข้างใน)
 ## และลูกชื่อ "PlayerStart" (Marker2D จุดเกิด player)
 @export var map_scene: PackedScene
+
+## เพลงประจำ stage นี้ เล่นวน ตอนเข้า stage (ไม่ใส่ก็ได้ ถ้าไม่ใส่จะไม่มีเพลงเปลี่ยน)
+@export var music: AudioStream

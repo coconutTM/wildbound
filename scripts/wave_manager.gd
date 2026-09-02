@@ -23,6 +23,7 @@ func start_next_wave() -> void:
 		return
 
 	print("Wave %d started" % (current_wave_index + 1))
+	SFX.play("wave_start")
 	_spawn_wave(waves[current_wave_index])
 	wave_started.emit(current_wave_index + 1)
 

@@ -69,6 +69,7 @@ func handle_attack() -> void:
 func attack() -> void:
 	can_attack = false
 	attack_hitbox.activate()
+	SFX.play("attack_swing", -6.0)
 
 	await get_tree().create_timer(0.15).timeout  # ระยะเวลาที่ hitbox เปิดอยู่ ปรับได้ตามฟีล
 
@@ -82,10 +83,12 @@ func _on_attack_cooldown_timeout() -> void:
 
 func take_damage(amount: int) -> void:
 	stats.take_damage(amount)
+	SFX.play("hit_impact")
 
 # Milestone 1 แค่ต้องการให้ enemy หายไปเมื่อ HP หมด ("Enemy ตายได้")
 # ระบบ drop loot จะเพิ่มใน Milestone 3 (loot.gd) ไม่ต้องทำตอนนี้
 func die() -> void:
+	SFX.play("enemy_death")
 	died.emit()
 	queue_free()
 

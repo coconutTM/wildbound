@@ -5,14 +5,17 @@ func _ready() -> void:
 	$UI.size = get_viewport_rect().size
 
 func _on_btn_play_pressed() -> void:
+	SFX.play("ui_click")
 	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 	get_tree().change_scene_to_file("res://scenes/main.tscn")
 
 func _on_btn_exit_pressed() -> void:
+	SFX.play("ui_click")
 	get_tree().quit()
 
 
 func _on_btn_credits_pressed() -> void:
+	SFX.play("ui_click")
 	get_tree().change_scene_to_file("res://scenes/credits.tscn")
 
 

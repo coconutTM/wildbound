@@ -29,12 +29,14 @@ func _on_player_died() -> void:
 func game_over() -> void:
 	state = State.GAME_OVER
 	game_over_triggered.emit()
+	Music.stop()
 	get_tree().change_scene_to_file.call_deferred("res://scenes/game_over.tscn")
 	#get_tree().quit()
 
 func win_game() -> void:
 	state = State.WIN
 	game_won.emit()
+	Music.stop()
 	get_tree().change_scene_to_file.call_deferred("res://scenes/win.tscn")
 
 # สำคัญ: reload_current_scene() จะรีเซ็ต node ทั้งหมดใหม่ (ตรงตาม spec

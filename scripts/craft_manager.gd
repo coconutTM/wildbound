@@ -19,4 +19,5 @@ func craft(recipe: Weapon_Recipe) -> bool:
 		player.remove_component(component_type, recipe.cost[component_type])
 
 	player.equip_weapon(recipe.weapon_stats)
+	SFX.play("craft_success")
 	return true

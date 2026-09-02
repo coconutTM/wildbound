@@ -27,6 +27,8 @@ func start_stage() -> void:
 
 	_load_map(stages[current_stage_index])
 
+	Music.play_track(stages[current_stage_index].music)
+
 	wave_manager.waves = stages[current_stage_index].waves
 	wave_manager.current_wave_index = -1
 

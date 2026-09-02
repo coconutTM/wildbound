@@ -75,9 +75,11 @@ func handle_attack() -> void:
 
 func take_damage(amount: int) -> void:
 	stats.take_damage(amount)
+	SFX.play("player_hurt")
 
 func die() -> void:
 	print("U died noob")
+	SFX.play("player_death")
 	set_physics_process(false)
 	died.emit()
 
@@ -131,6 +133,7 @@ func attack() -> void:
 	weapon_sprite.visible = true
 	attack_hitbox.activate()
 	attack_animation.play("attack")
+	SFX.play("attack_swing")
 	
 	# ระยะเวลาที่ hitbox เปิดอยู่ ตั้งตาม animation "attack" ยาวประมาณ 1 วินาที
 	# ถ้าปรับความเร็ว/ความยาว animation ทีหลัง ต้องมาปรับเลขนี้ให้ตรงกันด้วย

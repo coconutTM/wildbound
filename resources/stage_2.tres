@@ -7,10 +7,12 @@
 [ext_resource type="Resource" uid="uid://g8jj11q611b3" path="res://resources/wave_2.tres" id="4_hgiri"]
 [ext_resource type="Resource" uid="uid://dfa55p0ct5rkq" path="res://resources/wave_3.tres" id="5_nr0b1"]
 [ext_resource type="Resource" uid="uid://dpxhquh6ikajy" path="res://resources/wave_4.tres" id="6_yp4ny"]
+[ext_resource type="AudioStream" uid="uid://nu502r4e7jc4" path="res://assets/sounds/songs/Beneath_the_Overgrowth.mp3" id="7_music"]
 
 [resource]
 resource_local_to_scene = true
 script = ExtResource("1_fpmad")
 waves = Array[ExtResource("2_ldiit")]([ExtResource("3_qhgde"), ExtResource("4_hgiri"), ExtResource("5_nr0b1"), ExtResource("6_yp4ny")])
 map_scene = ExtResource("1_hgiri")
+music = ExtResource("7_music")
 metadata/_custom_type_script = "uid://bbovnix7vn37i"

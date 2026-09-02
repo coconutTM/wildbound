@@ -7,10 +7,12 @@
 [ext_resource type="Resource" uid="uid://g8jj11q611b3" path="res://resources/wave_2.tres" id="4_4gp4j"]
 [ext_resource type="Resource" uid="uid://dfa55p0ct5rkq" path="res://resources/wave_3.tres" id="5_hnbuy"]
 [ext_resource type="Resource" uid="uid://dpxhquh6ikajy" path="res://resources/wave_4.tres" id="6_a3ss8"]
+[ext_resource type="AudioStream" uid="uid://7brdikkwoj1o" path="res://assets/sounds/songs/Coconut_Tree_Stand_off.mp3" id="7_music"]
 
 [resource]
 resource_local_to_scene = true
 script = ExtResource("1_dtus1")
 waves = Array[ExtResource("2_cnf0e")]([ExtResource("3_hpq3v"), ExtResource("4_4gp4j"), ExtResource("5_hnbuy"), ExtResource("6_a3ss8")])
 map_scene = ExtResource("1_hnbuy")
+music = ExtResource("7_music")
 metadata/_custom_type_script = "uid://bbovnix7vn37i"

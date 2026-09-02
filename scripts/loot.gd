@@ -17,6 +17,7 @@ func _on_body_entered(body: Node2D) -> void:
 		return
 
 	body.add_component(component_type, amount)
+	SFX.play("pickup_loot")
 	pickup()
 
 func pickup() -> void:
