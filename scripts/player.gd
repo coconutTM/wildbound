@@ -111,6 +111,10 @@ func die() -> void:
 	set_physics_process(false)
 	died.emit()
 
+# เรียกจาก stage_manager.gd ตอนเปลี่ยน stage - รีเซ็ต HP กลับเต็ม
+func heal_full() -> void:
+	stats.heal_full()
+
 func equip_weapon(new_weapon: Weapon_Stats):
 	stats.weapon = new_weapon
 	stats.damage = new_weapon.damage

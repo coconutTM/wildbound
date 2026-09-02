@@ -60,5 +60,7 @@ limit_bottom = 900
 
 [node name="fade_transiiton" parent="MapContainer" unique_id=188825390 instance=ExtResource("15_jkv2x")]
 
-[node name="HUD" parent="." unique_id=1952379812 node_paths=PackedStringArray("player") instance=ExtResource("16_hud")]
+[node name="HUD" parent="." unique_id=1952379812 node_paths=PackedStringArray("player", "stage_manager", "wave_manager") instance=ExtResource("16_hud")]
 player = NodePath("../Player")
+stage_manager = NodePath("../Stage_Manager")
+wave_manager = NodePath("../Wave_Manager")

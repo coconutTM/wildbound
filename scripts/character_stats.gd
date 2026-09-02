@@ -30,6 +30,9 @@ func initialize_stats() -> void:
 	current_health = max_health
 	damage = weapon.damage
 
+func heal_full() -> void:
+	current_health = max_health
+
 func _on_health_set(new_value: int) -> void:
 	current_health = new_value
 	health_changed.emit(current_health, max_health)
