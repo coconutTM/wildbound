@@ -7,5 +7,5 @@
 [resource]
 resource_local_to_scene = true
 script = ExtResource("1_d2gni")
-enemies = Array[PackedScene]([ExtResource("1_ef431"), ExtResource("1_ef431"), ExtResource("2_n21ak"), ExtResource("2_n21ak")])
+enemies = Array[PackedScene]([ExtResource("1_ef431"), ExtResource("1_ef431"), ExtResource("1_ef431"), ExtResource("2_n21ak"), ExtResource("2_n21ak"), ExtResource("2_n21ak")])
 metadata/_custom_type_script = "uid://bsbychrocpt28"

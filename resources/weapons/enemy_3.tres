@@ -5,6 +5,7 @@
 [resource]
 script = ExtResource("1_vx8j7")
 weapon_name = "Slime"
+damage = 5
 attack_range = 40.0
 knockback = 80.0
 metadata/_custom_type_script = "uid://don3mrusxfqnn"

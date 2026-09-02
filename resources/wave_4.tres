@@ -3,9 +3,10 @@
 [ext_resource type="PackedScene" uid="uid://xfudpmqiid1d" path="res://scenes/enemy/enemy1.tscn" id="1_lgfeb"]
 [ext_resource type="Script" uid="uid://bsbychrocpt28" path="res://scripts/wave_data.gd" id="1_vt6cp"]
 [ext_resource type="PackedScene" uid="uid://osjp8gdwhcse" path="res://scenes/enemy/enemy.tscn" id="2_yqg0p"]
+[ext_resource type="PackedScene" uid="uid://cw2mqw1ttnmvf" path="res://scenes/enemy/enemy3.tscn" id="3_enemy3"]
 
 [resource]
 resource_local_to_scene = true
 script = ExtResource("1_vt6cp")
-enemies = Array[PackedScene]([ExtResource("1_lgfeb"), ExtResource("2_yqg0p")])
+enemies = Array[PackedScene]([ExtResource("1_lgfeb"), ExtResource("1_lgfeb"), ExtResource("1_lgfeb"), ExtResource("2_yqg0p"), ExtResource("2_yqg0p"), ExtResource("3_enemy3"), ExtResource("3_enemy3"), ExtResource("3_enemy3")])
 metadata/_custom_type_script = "uid://bsbychrocpt28"

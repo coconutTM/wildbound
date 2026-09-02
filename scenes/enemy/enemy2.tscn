@@ -11,7 +11,7 @@
 resource_local_to_scene = true
 script = ExtResource("2_md2pb")
 max_health = 8
-speed = 100.0
+speed = 150.0
 faction = 1
 weapon = ExtResource("3_w5xwq")
 metadata/_custom_type_script = "uid://bxn6loir4worr"

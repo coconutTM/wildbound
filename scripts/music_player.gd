@@ -4,6 +4,8 @@ extends Node
 # อยู่ข้ามทุก scene เพราะ autoload ไม่โดน free ตอน change_scene_to_file
 # เรียกใช้จากที่ไหนก็ได้: Music.play_track(some_stream), Music.stop()
 
+const TARGET_VOLUME_DB := -10.0  # เพลงเบาลงจากปกติ (0 = เต็มเสียง, ยิ่งติดลบมากยิ่งเบา) ปรับเลขนี้ได้เลย
+
 var player: AudioStreamPlayer
 var current_stream: AudioStream = null
 
@@ -30,7 +32,7 @@ func play_track(stream: AudioStream, fade_in: float = 0.6) -> void:
 	player.play()
 
 	var tween := create_tween()
-	tween.tween_property(player, "volume_db", 0.0, fade_in)
+	tween.tween_property(player, "volume_db", TARGET_VOLUME_DB, fade_in)
 
 
 func stop(fade_out: float = 0.6) -> void:

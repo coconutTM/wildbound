@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_d0vi4")
 weapon_name = "Snake"
-damage = 3
+damage = 8
 attack_range = 40.0
 knockback = 120.0
 metadata/_custom_type_script = "uid://don3mrusxfqnn"

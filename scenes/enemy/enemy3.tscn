@@ -10,7 +10,7 @@
 [sub_resource type="Resource" id="Resource_lbhrr"]
 resource_local_to_scene = true
 script = ExtResource("2_prlrc")
-speed = 50.0
+speed = 120.0
 faction = 1
 weapon = ExtResource("3_82h2u")
 metadata/_custom_type_script = "uid://bxn6loir4worr"

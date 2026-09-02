@@ -10,7 +10,7 @@
 [sub_resource type="Resource" id="Resource_lbhrr"]
 resource_local_to_scene = true
 script = ExtResource("2_mjv5f")
-speed = 80.0
+speed = 100.0
 faction = 1
 damage = 2
 weapon = ExtResource("3_8tfq7")

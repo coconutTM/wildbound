@@ -6,6 +6,6 @@
 [resource]
 resource_local_to_scene = true
 script = ExtResource("1_bkq04")
-enemies = Array[PackedScene]([ExtResource("1_jupop"), ExtResource("1_jupop")])
+enemies = Array[PackedScene]([ExtResource("1_jupop"), ExtResource("1_jupop"), ExtResource("1_jupop"), ExtResource("1_jupop")])
 spawn_delay = 1.0
 metadata/_custom_type_script = "uid://bsbychrocpt28"

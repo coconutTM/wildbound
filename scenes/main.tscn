@@ -15,11 +15,11 @@
 [ext_resource type="Resource" uid="uid://dpxhquh6ikajy" path="res://resources/wave_4.tres" id="11_jkv2x"]
 [ext_resource type="Resource" uid="uid://bwc3gdas5a4p3" path="res://resources/weapons/komfaek.tres" id="14_jkv2x"]
 [ext_resource type="PackedScene" uid="uid://tb4eq478k8jb" path="res://scenes/fade_transiiton.tscn" id="15_jkv2x"]
-[ext_resource type="PackedScene" path="res://scenes/hud.tscn" id="16_hud"]
+[ext_resource type="PackedScene" uid="uid://b2xh8hrqlst8c" path="res://scenes/hud.tscn" id="16_hud"]
 
 [sub_resource type="Resource" id="Resource_trceg"]
 script = ExtResource("7_jkv2x")
-max_health = 10000
+max_health = 20
 weapon = ExtResource("14_jkv2x")
 metadata/_custom_type_script = "uid://bxn6loir4worr"
 
@@ -60,5 +60,5 @@ limit_bottom = 900
 
 [node name="fade_transiiton" parent="MapContainer" unique_id=188825390 instance=ExtResource("15_jkv2x")]
 
-[node name="HUD" parent="." instance=ExtResource("16_hud") node_paths=PackedStringArray("player")]
+[node name="HUD" parent="." unique_id=1952379812 node_paths=PackedStringArray("player") instance=ExtResource("16_hud")]
 player = NodePath("../Player")
