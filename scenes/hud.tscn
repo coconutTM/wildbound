@@ -1,18 +1,18 @@
-[gd_scene format=3 uid="uid://b2xh8hrqlst8c"]
+[gd_scene load_steps=2 format=3]
 
-[ext_resource type="Script" uid="uid://qw37d4bct8d2" path="res://scripts/hud.gd" id="1_hud"]
+[ext_resource type="Script" path="res://scripts/hud.gd" id="1_hud"]
 
-[node name="HUD" type="CanvasLayer" unique_id=227445416]
+[node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_hud")
 
-[node name="Control" type="Control" parent="." unique_id=1249149106]
+[node name="Control" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1921.0
 offset_bottom = 1079.0
 mouse_filter = 2
 
-[node name="HealthPanel" type="VBoxContainer" parent="Control" unique_id=983728151]
+[node name="HealthPanel" type="VBoxContainer" parent="Control"]
 layout_mode = 0
 offset_left = 24.0
 offset_top = 24.0
@@ -20,30 +20,30 @@ offset_right = 344.0
 offset_bottom = 120.0
 theme_override_constants/separation = 4
 
-[node name="HealthBar" type="ProgressBar" parent="Control/HealthPanel" unique_id=1840587315]
+[node name="HealthBar" type="ProgressBar" parent="Control/HealthPanel"]
 custom_minimum_size = Vector2(320, 22)
 layout_mode = 2
 max_value = 10.0
 value = 10.0
 show_percentage = false
 
-[node name="HealthLabel" type="Label" parent="Control/HealthPanel" unique_id=446797376]
+[node name="HealthLabel" type="Label" parent="Control/HealthPanel"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 18
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 4
-theme_override_font_sizes/font_size = 18
 text = "10 / 10"
 
-[node name="WeaponLabel" type="Label" parent="Control/HealthPanel" unique_id=599034862]
+[node name="WeaponLabel" type="Label" parent="Control/HealthPanel"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 18
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 4
-theme_override_font_sizes/font_size = 18
 text = "Weapon: -"
 
-[node name="ComponentsPanel" type="VBoxContainer" parent="Control" unique_id=1253615998]
+[node name="ComponentsPanel" type="VBoxContainer" parent="Control"]
 layout_mode = 0
 offset_left = 24.0
 offset_top = 132.0
@@ -51,34 +51,47 @@ offset_right = 224.0
 offset_bottom = 260.0
 theme_override_constants/separation = 2
 
-[node name="WoodLabel" type="Label" parent="Control/ComponentsPanel" unique_id=57780710]
+[node name="WoodLabel" type="Label" parent="Control/ComponentsPanel"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 16
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 3
-theme_override_font_sizes/font_size = 16
 text = "Wood: 0"
 
-[node name="StoneLabel" type="Label" parent="Control/ComponentsPanel" unique_id=1299795906]
+[node name="StoneLabel" type="Label" parent="Control/ComponentsPanel"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 16
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 3
-theme_override_font_sizes/font_size = 16
 text = "Stone: 0"
 
-[node name="BoneLabel" type="Label" parent="Control/ComponentsPanel" unique_id=983753711]
+[node name="BoneLabel" type="Label" parent="Control/ComponentsPanel"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 16
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 3
-theme_override_font_sizes/font_size = 16
 text = "Bone: 0"
 
-[node name="FiberLabel" type="Label" parent="Control/ComponentsPanel" unique_id=623442549]
+[node name="FiberLabel" type="Label" parent="Control/ComponentsPanel"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 16
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 3
-theme_override_font_sizes/font_size = 16
 text = "Fiber: 0"
+
+[node name="StageWaveLabel" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 710.0
+offset_top = 20.0
+offset_right = 1210.0
+offset_bottom = 60.0
+theme_override_font_sizes/font_size = 22
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+horizontal_alignment = 1
+text = "Stage 1/2   Wave 1/4"
