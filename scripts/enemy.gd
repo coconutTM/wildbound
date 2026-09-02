@@ -9,6 +9,9 @@ signal died
 @onready var attack_hitbox: Hitbox = $AttackHitbox
 @onready var attack_cooldown: Timer = $AttackCooldown
 
+const HIT_FLASH_SHADER := preload("res://shaders/hit_flash.gdshader")
+var flash_tween: Tween
+
 var player: CharacterBody2D = null
 var can_attack: bool = true
 
@@ -24,6 +27,10 @@ func _ready() -> void:
 	attack_cooldown.timeout.connect(_on_attack_cooldown_timeout)
 
 	stats.health_depleted.connect(die)
+
+	var flash_material := ShaderMaterial.new()
+	flash_material.shader = HIT_FLASH_SHADER
+	sprite.material = flash_material
 
 func _physics_process(delta: float) -> void:
 	find_player()
@@ -83,12 +90,29 @@ func _on_attack_cooldown_timeout() -> void:
 
 func take_damage(amount: int) -> void:
 	stats.take_damage(amount)
-	SFX.play("hit_impact")
+	flash_white()
+	CameraShake.add_trauma(0.12)
+	DamageNumbers.spawn(amount, global_position, Color(1.0, 1.0, 1.0))
+	# ถ้าโดนตีจนตายพอดี die() จะถูกเรียกไปแล้วตอนบรรทัดบน (ผ่าน health_depleted signal)
+	# เลยเช็คก่อนเล่น hit_impact กัน sound ซ้อนกับ enemy_death ตอนโดนตีคำสุดท้าย
+	if stats.current_health > 0:
+		SFX.play("hit_impact")
+
+func flash_white() -> void:
+	if flash_tween:
+		flash_tween.kill()  # กันเฟรมค้างสีขาวถ้าโดนตีรัว ๆ ก่อนอันเก่าเล่นจบ
+	sprite.material.set_shader_parameter("flash_amount", 1.0)
+	flash_tween = create_tween()
+	flash_tween.tween_method(
+		func(v): sprite.material.set_shader_parameter("flash_amount", v),
+		1.0, 0.0, 0.12
+	)
 
 # Milestone 1 แค่ต้องการให้ enemy หายไปเมื่อ HP หมด ("Enemy ตายได้")
 # ระบบ drop loot จะเพิ่มใน Milestone 3 (loot.gd) ไม่ต้องทำตอนนี้
 func die() -> void:
 	SFX.play("enemy_death")
+	CameraShake.add_trauma(0.2)
 	died.emit()
 	queue_free()
 

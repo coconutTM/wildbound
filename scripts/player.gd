@@ -16,6 +16,10 @@ signal components_changed  # hud.gd / crafting_ui.gd ฟังไว้ อั�
 @onready var attack_cooldown: Timer = $Attack_cooldown
 @onready var weapon: Node2D = $Weapon
 @onready var weapon_pivot: Node2D = $Weapon/Pivot2D
+@onready var camera: Camera2D = get_node_or_null("Camera2D")
+
+const HIT_FLASH_SHADER := preload("res://shaders/hit_flash.gdshader")
+var flash_tween: Tween
 
 var knockback_velocity: Vector2 = Vector2.ZERO
 const KNOCKBACK_FRICTION: float = 600.0  # ยิ่งมาก ยิ่งหยุดผลักเร็ว ปรับได้ตามฟีล
@@ -41,6 +45,14 @@ func _ready() -> void:
 	attack_cooldown.timeout.connect(_on_attack_cooldown_timeout)
 	
 	stats.health_depleted.connect(die)
+
+	var flash_material := ShaderMaterial.new()
+	flash_material.shader = HIT_FLASH_SHADER
+	sprite.material = flash_material
+
+	# camera เป็น null ก็ไม่ error แค่ไม่มีอะไรสั่น (เผื่อ Player ถูกใช้ scene อื่นที่ไม่มีกล้อง)
+	if camera:
+		CameraShake.register_camera(camera)
 	
 
 func _process(delta: float) -> void:
@@ -75,11 +87,27 @@ func handle_attack() -> void:
 
 func take_damage(amount: int) -> void:
 	stats.take_damage(amount)
-	SFX.play("player_hurt")
+	flash_white()
+	CameraShake.add_trauma(0.35)
+	DamageNumbers.spawn(amount, global_position, Color(1.0, 0.35, 0.35))
+	# เหตุผลเดียวกับ enemy.gd - กัน player_hurt ซ้อนกับ player_death ตอนโดนคำสุดท้าย
+	if stats.current_health > 0:
+		SFX.play("player_hurt")
+
+func flash_white() -> void:
+	if flash_tween:
+		flash_tween.kill()  # กันเฟรมค้างสีขาวถ้าโดนตีรัว ๆ ก่อนอันเก่าเล่นจบ
+	sprite.material.set_shader_parameter("flash_amount", 1.0)
+	flash_tween = create_tween()
+	flash_tween.tween_method(
+		func(v): sprite.material.set_shader_parameter("flash_amount", v),
+		1.0, 0.0, 0.12
+	)
 
 func die() -> void:
 	print("U died noob")
 	SFX.play("player_death")
+	CameraShake.add_trauma(0.7)
 	set_physics_process(false)
 	died.emit()
 

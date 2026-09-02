@@ -1,0 +1,160 @@
+diff --git a/resources/wave_1.tres b/resources/wave_1.tres
+index 3a55582..a0fc29c 100644
+--- a/resources/wave_1.tres
++++ b/resources/wave_1.tres
+@@ -6,6 +6,6 @@
+ [resource]
+ resource_local_to_scene = true
+ script = ExtResource("1_bkq04")
+-enemies = Array[PackedScene]([ExtResource("1_jupop"), ExtResource("1_jupop")])
++enemies = Array[PackedScene]([ExtResource("1_jupop"), ExtResource("1_jupop"), ExtResource("1_jupop"), ExtResource("1_jupop")])
+ spawn_delay = 1.0
+ metadata/_custom_type_script = "uid://bsbychrocpt28"
+diff --git a/resources/wave_2.tres b/resources/wave_2.tres
+index 78b6ed3..f985d14 100644
+--- a/resources/wave_2.tres
++++ b/resources/wave_2.tres
+@@ -7,5 +7,5 @@
+ [resource]
+ resource_local_to_scene = true
+ script = ExtResource("1_d2gni")
+-enemies = Array[PackedScene]([ExtResource("1_ef431"), ExtResource("1_ef431"), ExtResource("2_n21ak"), ExtResource("2_n21ak")])
++enemies = Array[PackedScene]([ExtResource("1_ef431"), ExtResource("1_ef431"), ExtResource("1_ef431"), ExtResource("2_n21ak"), ExtResource("2_n21ak"), ExtResource("2_n21ak")])
+ metadata/_custom_type_script = "uid://bsbychrocpt28"
+diff --git a/resources/wave_3.tres b/resources/wave_3.tres
+index 1a58963..1b484dc 100644
+--- a/resources/wave_3.tres
++++ b/resources/wave_3.tres
+@@ -8,5 +8,5 @@
+ [resource]
+ resource_local_to_scene = true
+ script = ExtResource("1_f2cr2")
+-enemies = Array[PackedScene]([ExtResource("1_1in0v"), ExtResource("2_fvxll"), ExtResource("3_kxjco")])
++enemies = Array[PackedScene]([ExtResource("1_1in0v"), ExtResource("1_1in0v"), ExtResource("2_fvxll"), ExtResource("2_fvxll"), ExtResource("3_kxjco"), ExtResource("3_kxjco")])
+ metadata/_custom_type_script = "uid://bsbychrocpt28"
+diff --git a/resources/wave_4.tres b/resources/wave_4.tres
+index 5aa2d40..9f5ec67 100644
+--- a/resources/wave_4.tres
++++ b/resources/wave_4.tres
+@@ -3,9 +3,10 @@
+ [ext_resource type="PackedScene" uid="uid://xfudpmqiid1d" path="res://scenes/enemy/enemy1.tscn" id="1_lgfeb"]
+ [ext_resource type="Script" uid="uid://bsbychrocpt28" path="res://scripts/wave_data.gd" id="1_vt6cp"]
+ [ext_resource type="PackedScene" uid="uid://osjp8gdwhcse" path="res://scenes/enemy/enemy.tscn" id="2_yqg0p"]
++[ext_resource type="PackedScene" uid="uid://cw2mqw1ttnmvf" path="res://scenes/enemy/enemy3.tscn" id="3_enemy3"]
+ 
+ [resource]
+ resource_local_to_scene = true
+ script = ExtResource("1_vt6cp")
+-enemies = Array[PackedScene]([ExtResource("1_lgfeb"), ExtResource("2_yqg0p")])
++enemies = Array[PackedScene]([ExtResource("1_lgfeb"), ExtResource("1_lgfeb"), ExtResource("1_lgfeb"), ExtResource("2_yqg0p"), ExtResource("2_yqg0p"), ExtResource("3_enemy3"), ExtResource("3_enemy3"), ExtResource("3_enemy3")])
+ metadata/_custom_type_script = "uid://bsbychrocpt28"
+diff --git a/scenes/hud.tscn b/scenes/hud.tscn
+index 91d0896..82570fd 100644
+--- a/scenes/hud.tscn
++++ b/scenes/hud.tscn
+@@ -82,3 +82,16 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
+ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+ theme_override_constants/outline_size = 3
+ text = "Fiber: 0"
++
++[node name="StageWaveLabel" type="Label" parent="Control"]
++layout_mode = 0
++offset_left = 710.0
++offset_top = 20.0
++offset_right = 1210.0
++offset_bottom = 60.0
++theme_override_font_sizes/font_size = 22
++theme_override_colors/font_color = Color(1, 1, 1, 1)
++theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
++theme_override_constants/outline_size = 4
++horizontal_alignment = 1
++text = "Stage 1/2   Wave 1/4"
+diff --git a/scenes/main.tscn b/scenes/main.tscn
+index 7581daf..230b9b0 100644
+--- a/scenes/main.tscn
++++ b/scenes/main.tscn
+@@ -60,5 +60,7 @@ limit_bottom = 900
+ 
+ [node name="fade_transiiton" parent="MapContainer" unique_id=188825390 instance=ExtResource("15_jkv2x")]
+ 
+-[node name="HUD" parent="." instance=ExtResource("16_hud") node_paths=PackedStringArray("player")]
++[node name="HUD" parent="." instance=ExtResource("16_hud") node_paths=PackedStringArray("player", "stage_manager", "wave_manager")]
+ player = NodePath("../Player")
++stage_manager = NodePath("../Stage_Manager")
++wave_manager = NodePath("../Wave_Manager")
+diff --git a/scripts/hud.gd b/scripts/hud.gd
+index caefe55..16f0aca 100644
+--- a/scripts/hud.gd
++++ b/scripts/hud.gd
+@@ -1,8 +1,10 @@
+ class_name HUD
+ extends CanvasLayer
+ 
+-## ผูกใน editor: ลาก node Player เข้ามาใส่ export นี้
++## ผูกใน editor: ลาก node Player/Stage_Manager/Wave_Manager เข้ามาใส่ export พวกนี้
+ @export var player: Player
++@export var stage_manager: Stage_Manager
++@export var wave_manager: Wave_Manager
+ 
+ @onready var health_bar: ProgressBar = $Control/HealthPanel/HealthBar
+ @onready var health_label: Label = $Control/HealthPanel/HealthLabel
+@@ -11,6 +13,7 @@ extends CanvasLayer
+ @onready var stone_label: Label = $Control/ComponentsPanel/StoneLabel
+ @onready var bone_label: Label = $Control/ComponentsPanel/BoneLabel
+ @onready var fiber_label: Label = $Control/ComponentsPanel/FiberLabel
++@onready var stage_wave_label: Label = $Control/StageWaveLabel
+ 
+ 
+ func _ready() -> void:
+@@ -19,12 +22,15 @@ func _ready() -> void:
+ 	player.stats.health_changed.connect(_on_health_changed)
+ 	player.weapon_changed.connect(_on_weapon_changed)
+ 	player.components_changed.connect(_on_components_changed)
++	stage_manager.stage_started.connect(_on_stage_or_wave_changed)
++	wave_manager.wave_started.connect(_on_stage_or_wave_changed)
+ 
+ 	# เซ็ตค่าเริ่มต้นทันทีตอนเข้าเกม ไม่ต้องรอ signal แรกยิง
+ 	# (กัน race condition ตอน stats.initialize_stats() เป็น call_deferred)
+ 	_on_health_changed(player.stats.current_health, player.stats.max_health)
+ 	_on_weapon_changed()
+ 	_on_components_changed()
++	_on_stage_or_wave_changed()
+ 
+ 
+ func _on_health_changed(current_health: int, max_health: int) -> void:
+@@ -42,3 +48,13 @@ func _on_components_changed() -> void:
+ 	stone_label.text = "Stone: %d" % player.components.get("stone", 0)
+ 	bone_label.text = "Bone: %d" % player.components.get("bone", 0)
+ 	fiber_label.text = "Fiber: %d" % player.components.get("fiber", 0)
++
++
++# ใช้ handler เดียวรับได้ทั้ง stage_started(int) และ wave_started(int)
++# (ใส่ default value ให้ arg เผื่อเรียกเองตอน _ready() แบบไม่มี arg ด้วย)
++func _on_stage_or_wave_changed(_unused: int = 0) -> void:
++	var stage_num := stage_manager.current_stage_index + 1
++	var stage_total := stage_manager.stages.size()
++	var wave_num := wave_manager.current_wave_index + 1
++	var wave_total := wave_manager.waves.size()
++	stage_wave_label.text = "Stage %d/%d   Wave %d/%d" % [stage_num, stage_total, wave_num, wave_total]
+diff --git a/scripts/music_player.gd b/scripts/music_player.gd
+index 5447bf8..9c4ac44 100644
+--- a/scripts/music_player.gd
++++ b/scripts/music_player.gd
+@@ -4,6 +4,8 @@ extends Node
+ # อยู่ข้ามทุก scene เพราะ autoload ไม่โดน free ตอน change_scene_to_file
+ # เรียกใช้จากที่ไหนก็ได้: Music.play_track(some_stream), Music.stop()
+ 
++const TARGET_VOLUME_DB := -10.0  # เพลงเบาลงจากปกติ (0 = เต็มเสียง, ยิ่งติดลบมากยิ่งเบา) ปรับเลขนี้ได้เลย
++
+ var player: AudioStreamPlayer
+ var current_stream: AudioStream = null
+ 
+@@ -30,7 +32,7 @@ func play_track(stream: AudioStream, fade_in: float = 0.6) -> void:
+ 	player.play()
+ 
+ 	var tween := create_tween()
+-	tween.tween_property(player, "volume_db", 0.0, fade_in)
++	tween.tween_property(player, "volume_db", TARGET_VOLUME_DB, fade_in)
+ 
+ 
+ func stop(fade_out: float = 0.6) -> void:

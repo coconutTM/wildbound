@@ -19,6 +19,8 @@ config/icon="res://icon.svg"
 
 SFX="*res://scripts/sfx_player.gd"
 Music="*res://scripts/music_player.gd"
+CameraShake="*res://scripts/camera_shake.gd"
+DamageNumbers="*res://scripts/damage_numbers.gd"
 
 [display]
 

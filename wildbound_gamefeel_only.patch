@@ -1,0 +1,260 @@
+diff --git a/project.godot b/project.godot
+index 1c1ee04..de77596 100644
+--- a/project.godot
++++ b/project.godot
+@@ -19,6 +19,8 @@ config/icon="res://icon.svg"
+ 
+ SFX="*res://scripts/sfx_player.gd"
+ Music="*res://scripts/music_player.gd"
++CameraShake="*res://scripts/camera_shake.gd"
++DamageNumbers="*res://scripts/damage_numbers.gd"
+ 
+ [display]
+ 
+diff --git a/scenes/damage_number.tscn b/scenes/damage_number.tscn
+new file mode 100644
+index 0000000..64bd809
+--- /dev/null
++++ b/scenes/damage_number.tscn
+@@ -0,0 +1,14 @@
++[gd_scene load_steps=2 format=3]
++
++[ext_resource type="Script" path="res://scripts/damage_number.gd" id="1_dmg"]
++
++[node name="DamageNumber" type="Label"]
++z_index = 100
++horizontal_alignment = 1
++vertical_alignment = 1
++theme_override_font_sizes/font_size = 22
++theme_override_colors/font_color = Color(1, 1, 1, 1)
++theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
++theme_override_constants/outline_size = 5
++text = "0"
++script = ExtResource("1_dmg")
+diff --git a/scripts/camera_shake.gd b/scripts/camera_shake.gd
+new file mode 100644
+index 0000000..0ca5cf9
+--- /dev/null
++++ b/scripts/camera_shake.gd
+@@ -0,0 +1,42 @@
++extends Node
++
++# Autoload (singleton) ชื่อ "CameraShake"
++# เรียกจากที่ไหนก็ได้: CameraShake.add_trauma(0.3)
++# ตัว camera เองต้อง register ตัวเองก่อนถึงจะสั่นได้ (ดู player.gd _ready())
++
++const TRAUMA_DECAY := 2.5  # ยิ่งมาก ยิ่งหายเร็ว (หน่วยต่อวินาที)
++const MAX_OFFSET := 8.0    # pixel offset สูงสุดตอนสั่นแรงสุด
++
++var camera: Camera2D = null
++var trauma: float = 0.0
++
++var rng := RandomNumberGenerator.new()
++
++
++func _ready() -> void:
++	rng.randomize()
++
++
++func register_camera(cam: Camera2D) -> void:
++	camera = cam
++
++
++func add_trauma(amount: float) -> void:
++	trauma = clamp(trauma + amount, 0.0, 1.0)
++
++
++func _process(delta: float) -> void:
++	if not camera:
++		return
++
++	if trauma <= 0.0:
++		camera.offset = Vector2.ZERO
++		return
++
++	trauma = max(trauma - TRAUMA_DECAY * delta, 0.0)
++	# ยกกำลังสอง กันสั่นแรงเท่าเดิมตลอด ให้มันเบาลงเร็วช่วงท้าย ดูเป็นธรรมชาติกว่า
++	var power := trauma * trauma
++	camera.offset = Vector2(
++		rng.randf_range(-1.0, 1.0),
++		rng.randf_range(-1.0, 1.0)
++	) * MAX_OFFSET * power
+diff --git a/scripts/damage_number.gd b/scripts/damage_number.gd
+new file mode 100644
+index 0000000..68b8c9a
+--- /dev/null
++++ b/scripts/damage_number.gd
+@@ -0,0 +1,19 @@
++extends Label
++
++
++func setup(amount: int, color: Color = Color.WHITE) -> void:
++	text = str(amount)
++	modulate = color
++
++
++# เรียกแยกจาก _ready() ตั้งใจ กัน race condition เรื่องตำแหน่ง
++# (ต้องตั้ง global_position ให้เสร็จก่อน ค่อยเริ่มเล่น animation)
++func play() -> void:
++	var start_y := position.y
++	var tween := create_tween()
++	tween.set_parallel(true)
++	tween.tween_property(self, "position:y", start_y - 30.0, 0.7)\
++		.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
++	tween.tween_property(self, "modulate:a", 0.0, 0.5).set_delay(0.3)
++	await get_tree().create_timer(0.85).timeout
++	queue_free()
+diff --git a/scripts/damage_numbers.gd b/scripts/damage_numbers.gd
+new file mode 100644
+index 0000000..0567cca
+--- /dev/null
++++ b/scripts/damage_numbers.gd
+@@ -0,0 +1,16 @@
++extends Node
++
++# Autoload (singleton) ชื่อ "DamageNumbers"
++# เรียกจากที่ไหนก็ได้: DamageNumbers.spawn(5, global_position, Color.RED)
++
++const DAMAGE_NUMBER_SCENE := preload("res://scenes/damage_number.tscn")
++
++
++func spawn(amount: int, world_position: Vector2, color: Color = Color.WHITE) -> void:
++	var label: Label = DAMAGE_NUMBER_SCENE.instantiate()
++	get_tree().current_scene.add_child(label)
++
++	# สุ่มตำแหน่งแนวนอนเล็กน้อย กันตัวเลขทับกันเป๊ะเวลาโดนตีรัว ๆ
++	label.global_position = world_position + Vector2(randf_range(-6.0, 6.0), -10.0)
++	label.setup(amount, color)
++	label.play()
+diff --git a/scripts/enemy.gd b/scripts/enemy.gd
+index 3327d27..d2849f7 100644
+--- a/scripts/enemy.gd
++++ b/scripts/enemy.gd
+@@ -9,6 +9,9 @@ signal died
+ @onready var attack_hitbox: Hitbox = $AttackHitbox
+ @onready var attack_cooldown: Timer = $AttackCooldown
+ 
++const HIT_FLASH_SHADER := preload("res://shaders/hit_flash.gdshader")
++var flash_tween: Tween
++
+ var player: CharacterBody2D = null
+ var can_attack: bool = true
+ 
+@@ -25,6 +28,10 @@ func _ready() -> void:
+ 
+ 	stats.health_depleted.connect(die)
+ 
++	var flash_material := ShaderMaterial.new()
++	flash_material.shader = HIT_FLASH_SHADER
++	sprite.material = flash_material
++
+ func _physics_process(delta: float) -> void:
+ 	find_player()
+ 	handle_movement(delta)
+@@ -83,12 +90,29 @@ func _on_attack_cooldown_timeout() -> void:
+ 
+ func take_damage(amount: int) -> void:
+ 	stats.take_damage(amount)
+-	SFX.play("hit_impact")
++	flash_white()
++	CameraShake.add_trauma(0.12)
++	DamageNumbers.spawn(amount, global_position, Color(1.0, 1.0, 1.0))
++	# ถ้าโดนตีจนตายพอดี die() จะถูกเรียกไปแล้วตอนบรรทัดบน (ผ่าน health_depleted signal)
++	# เลยเช็คก่อนเล่น hit_impact กัน sound ซ้อนกับ enemy_death ตอนโดนตีคำสุดท้าย
++	if stats.current_health > 0:
++		SFX.play("hit_impact")
++
++func flash_white() -> void:
++	if flash_tween:
++		flash_tween.kill()  # กันเฟรมค้างสีขาวถ้าโดนตีรัว ๆ ก่อนอันเก่าเล่นจบ
++	sprite.material.set_shader_parameter("flash_amount", 1.0)
++	flash_tween = create_tween()
++	flash_tween.tween_method(
++		func(v): sprite.material.set_shader_parameter("flash_amount", v),
++		1.0, 0.0, 0.12
++	)
+ 
+ # Milestone 1 แค่ต้องการให้ enemy หายไปเมื่อ HP หมด ("Enemy ตายได้")
+ # ระบบ drop loot จะเพิ่มใน Milestone 3 (loot.gd) ไม่ต้องทำตอนนี้
+ func die() -> void:
+ 	SFX.play("enemy_death")
++	CameraShake.add_trauma(0.2)
+ 	died.emit()
+ 	queue_free()
+ 
+diff --git a/scripts/player.gd b/scripts/player.gd
+index fa71224..8dfc585 100644
+--- a/scripts/player.gd
++++ b/scripts/player.gd
+@@ -16,6 +16,10 @@ signal components_changed  # hud.gd / crafting_ui.gd ฟังไว้ อั
+ @onready var attack_cooldown: Timer = $Attack_cooldown
+ @onready var weapon: Node2D = $Weapon
+ @onready var weapon_pivot: Node2D = $Weapon/Pivot2D
++@onready var camera: Camera2D = get_node_or_null("Camera2D")
++
++const HIT_FLASH_SHADER := preload("res://shaders/hit_flash.gdshader")
++var flash_tween: Tween
+ 
+ var knockback_velocity: Vector2 = Vector2.ZERO
+ const KNOCKBACK_FRICTION: float = 600.0  # ยิ่งมาก ยิ่งหยุดผลักเร็ว ปรับได้ตามฟีล
+@@ -41,6 +45,14 @@ func _ready() -> void:
+ 	attack_cooldown.timeout.connect(_on_attack_cooldown_timeout)
+ 	
+ 	stats.health_depleted.connect(die)
++
++	var flash_material := ShaderMaterial.new()
++	flash_material.shader = HIT_FLASH_SHADER
++	sprite.material = flash_material
++
++	# camera เป็น null ก็ไม่ error แค่ไม่มีอะไรสั่น (เผื่อ Player ถูกใช้ scene อื่นที่ไม่มีกล้อง)
++	if camera:
++		CameraShake.register_camera(camera)
+ 	
+ 
+ func _process(delta: float) -> void:
+@@ -75,11 +87,27 @@ func handle_attack() -> void:
+ 
+ func take_damage(amount: int) -> void:
+ 	stats.take_damage(amount)
+-	SFX.play("player_hurt")
++	flash_white()
++	CameraShake.add_trauma(0.35)
++	DamageNumbers.spawn(amount, global_position, Color(1.0, 0.35, 0.35))
++	# เหตุผลเดียวกับ enemy.gd - กัน player_hurt ซ้อนกับ player_death ตอนโดนคำสุดท้าย
++	if stats.current_health > 0:
++		SFX.play("player_hurt")
++
++func flash_white() -> void:
++	if flash_tween:
++		flash_tween.kill()  # กันเฟรมค้างสีขาวถ้าโดนตีรัว ๆ ก่อนอันเก่าเล่นจบ
++	sprite.material.set_shader_parameter("flash_amount", 1.0)
++	flash_tween = create_tween()
++	flash_tween.tween_method(
++		func(v): sprite.material.set_shader_parameter("flash_amount", v),
++		1.0, 0.0, 0.12
++	)
+ 
+ func die() -> void:
+ 	print("U died noob")
+ 	SFX.play("player_death")
++	CameraShake.add_trauma(0.7)
+ 	set_physics_process(false)
+ 	died.emit()
+ 
+diff --git a/shaders/hit_flash.gdshader b/shaders/hit_flash.gdshader
+new file mode 100644
+index 0000000..2a50bda
+--- /dev/null
++++ b/shaders/hit_flash.gdshader
+@@ -0,0 +1,11 @@
++shader_type canvas_item;
++
++// ควบคุมจาก GDScript ผ่าน material.set_shader_parameter("flash_amount", x)
++// 0.0 = ปกติ, 1.0 = ขาวเต็มที่
++uniform float flash_amount : hint_range(0.0, 1.0) = 0.0;
++
++void fragment() {
++	vec4 tex_color = texture(TEXTURE, UV);
++	COLOR.rgb = mix(tex_color.rgb, vec3(1.0), flash_amount);
++	COLOR.a = tex_color.a;
++}
